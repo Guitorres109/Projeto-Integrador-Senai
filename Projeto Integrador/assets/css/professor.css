@@ -1,0 +1,104 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background: #ffffff;
+}
+nav{
+    background-color: rgba(240, 239, 239, 0.733);
+    backdrop-filter: blur(8px);
+    border-bottom: #000000 inset 1px;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    height: 30px;
+}
+.logo{
+    width: 330px;
+}
+.sair p{
+    font-size: 20px;
+    color: rgb(252, 89, 89);
+    font-family: Arial, Helvetica, sans-serif;
+}
+.sair{
+    display: flex;
+    width: auto;
+    height: 50px;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 5px;
+}
+.sair button{
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(252, 89, 89);
+}
+#sair img{
+    width: 50%;
+    height: 50%;
+    padding-left: 3px;
+}
+nav img{
+    width: 50px;
+    height: 50px;
+}
+#nomeplataforma{
+    width: 220px;
+    margin-left: 20px;
+}
+main{
+    display: flex;
+    align-items: center;
+    height:850px;
+    margin-top: 30px;
+    flex-direction: column;
+    gap: 20px;
+}
+.bloco{
+    border-radius: 10px;
+    background: #dddddda8;
+    border: solid 4px #21365E;
+    backdrop-filter: blur(8px);
+    width: 90%;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.5s ease;
+}
+.bloco:hover{
+    transform: scale(1.03);
+}
+.criar{
+    border-radius: 10px;
+    width: 90%;
+    height: 200px;
+    display: flex;
+    background-color: #21365E;
+}
+.titulo{
+    background-color: #21365E;
+    width: auto;
+    height: 50px;
+    padding-left: 30px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.titulo h2{
+    margin-top: 10px;
+}
+.conteudo{
+    padding: 10px;
+    height: auto;
+    font-family: Arial, Helvetica, sans-serif;
+}

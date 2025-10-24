@@ -12,7 +12,7 @@
 }
 body{
     background: black;
-    background-image: url("../images/escola.png"), linear-gradient(to bottom , black , black);
+    background-image: url("assets/images/escola.png"), linear-gradient(to bottom , black , black);
     background-size: cover;           /* cobre toda a tela */
     background-repeat: no-repeat;     /* não repete */
     background-position: center;      /* centraliza */

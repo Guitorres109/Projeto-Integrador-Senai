@@ -10,49 +10,51 @@ public class ServidorHttpSimples {
         HttpServer servidor = HttpServer.create(new InetSocketAddress(8080), 0);
 
         /* INICIO DO CÓDIGO */
-        servidor.createContext("/" , troca ->{
-            enviarArquivo(troca,"index.html","text/html");
-                });
+
         servidor.createContext("/sucesso" , troca ->{
             enviarArquivo(troca,"sucesso.html","text/html");
         });
-        servidor.createContext("/adm" , troca ->{
-            enviarArquivo(troca,"adm.html","text/html");
+        servidor.createContext("/professor" , troca ->{
+            enviarArquivo(troca, "professor.html","text/html");
         });
-        servidor.createContext("/comum" , troca ->{
-            enviarArquivo(troca,"comum.html","text/html");
+        servidor.createContext("/aluno" , troca ->{
+            enviarArquivo(troca, "aluno.html","text/html");
         });
-        servidor.createContext("/estilo.css" , troca ->{
-            enviarArquivo(troca,"estilo.css","text/css");
+        servidor.createContext("/style.css" , troca ->{
+            enviarArquivo(troca,"style.css","text/css");
+        });
+        servidor.createContext("/script.js" , troca ->{
+            enviarArquivo(troca, "script.js","text/js");
         });
 
-        servidor.createContext("/login" , troca ->{
+        servidor.createContext("/" , troca ->{
+            enviarArquivo(troca, "index.html", "text/html");
             String query = troca.getRequestURI().getQuery();
             String[] partes;
             partes = query.split("&");
             String perfil = partes[0].replace("tipo=","");
             String usuario = partes[1].replace("usuario=","");
             String senha = partes[2].replace("senha=","");
-            System.out.println("");
+            System.out.println(" ");
             System.out.println("Perfil= "+perfil);
             System.out.println("Nome= "+usuario);
             System.out.println("Senha= "+senha);
 
-            if (perfil.equals("administrador")){
+            if (perfil.equals("professor")){
                 if (usuario.equals("Guilherme+Torres")&&senha.equals("1234567890")){
                 System.out.println("Acesso autorizado");
-                troca.getResponseHeaders().set("Location","/adm");
+                troca.getResponseHeaders().set("Location","/professor");
                 troca.sendResponseHeaders(302, -1);
                 }
                 else{
                     System.out.println("Acesso Negado");
-                    troca.getResponseHeaders().set("Location","/sucesso");
+                    troca.getResponseHeaders().set("Location","/professor");
                     troca.sendResponseHeaders(302, -1);
                 }
             }
             else if (perfil.equals("Aluno")) {
                 System.out.println("Acesso autorizado");
-                troca.getResponseHeaders().set("Location","/comum");
+                troca.getResponseHeaders().set("Location","/aluno");
                 troca.sendResponseHeaders(302, -1);
             }
         });
@@ -66,7 +68,7 @@ public class ServidorHttpSimples {
 
     // Envia um arquivo (HTML ou CSS)
     private static void enviarArquivo(com.sun.net.httpserver.HttpExchange troca, String caminho, String tipo) throws IOException {
-        File arquivo = new File("src/" + caminho);
+        File arquivo = new File("untitled/src/" + caminho);
         if (!arquivo.exists()) {
             System.out.println("Arquivo não encontrado: " + arquivo.getAbsolutePath());
         }
