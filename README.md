@@ -14,9 +14,11 @@ Controle de Acesso:
 Apresentação dos Dados:
 • Listagem das atividades em formato de “caixinhas” com título, data e horário.
 • Ao clicar, exibir detalhes e opções de interação (participar/não participar).
+
 👥 Perfis de Usuário
 Professor: responsável por criar e gerenciar atividades da sua turma.
 Aluno: acessa para visualizar compromissos e confirmar participação.
+
 ⚙️ Requisitos Funcionais
 Login e autenticação de usuários.
 Cadastro de atividades e compromissos.
