@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="icon" href="assets/images/AcademyFlow-logo.png">
+<title>Login</title>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<link rel="stylesheet" href="assets/css/style.css">
+<body>
+<main>
+    <section class="container">
+        <div class="cabecalho">
+            <img src="logo.png" alt="">
+            <img src="AcademyFlow-nome (1).png" alt="" id="nomeplataforma">
+        </div>
+        <div class="bloco">
+            <label for="usuario">Usuário</label>
+            <input type="text" placeholder="Nome Completo" id="usuario" name="usuario" required>
+        </div>
+        <div class="bloco">
+            <label for="senha">Senha</label>
+            <div class="inputsenha">
+                <input type="password" placeholder="Mínimo 8 caracteres" id="senha" name="senha" minlength="8" required>
+                <button type="button" id="botaosenha" onclick="togglePassword()">👁️</button>
+            </div>
+        </div>
+        <div class="bloco">
+            <label for="tipo">Perfil</label>
+            <select id="tipo">
+                <option value="aluno">Aluno</option>
+                <option value="professor">Professor</option>
+            </select>
+        </div>
+        <button onclick="enviarDados()" id="enviar">Enviar</button>
+    </section>
+</main>
+
+<script>
+    // Função para exibir a senha (mostrar/esconder)
+    function togglePassword() {
+      var senha = document.getElementById("senha");
+      if (senha.type === "password") {
+        senha.type = "text"; // Mudar para mostrar a senha
+      } else {
+        senha.type = "password"; // Mudar para esconder a senha
+      }
+    }
+    document.getElementById("botaosenha").addEventListener("click", function() {
+      this.classList.toggle("ativo");
+    });
+
+    // Função para enviar os dados e atualizar a query string
+    function enviarDados() {
+      const usuario = document.getElementById('usuario').value.trim();
+      const senha = document.getElementById('senha').value;
+      const tipo = document.getElementById('tipo').value;
+
+      // Verificação básica para garantir que os campos não estão vazios
+      if (!usuario || !senha) {
+        alert('Por favor, preencha o nome e a senha.');
+        return;
+      }
+
+      const url = new URL(window.location.href);
+
+      // Adiciona ou atualiza os parâmetros na URL
+      url.searchParams.set('tipo', tipo);
+      url.searchParams.set('usuario', usuario);
+      url.searchParams.set('senha', senha);
+
+      // Atualiza a URL no navegador sem recarregar a página
+      window.history.pushState({}, '', url);
+
+      // Atualiza os dados exibidos na página
+      atualizarExibicao();
+
+      // Limpa os dados após o envio
+      limparCampos();
+    }
+
+    // Função para atualizar os dados da página com base na query string
+    function atualizarExibicao() {
+      const params = new URLSearchParams(window.location.search);
+
+      // Pega os parâmetros da query string
+      const tipo = params.get('tipo') || 'Não informado';
+      const usuario = params.get('usuario') || 'Não informado';
+      const senha = params.get('senha') || 'Não informada';
+
+      // Atualiza os elementos HTML com os valores
+      document.getElementById('usuarioDisplay').textContent = usuario;
+      document.getElementById('senhaDisplay').textContent = senha;
+      document.getElementById('tipoDisplay').textContent = tipo;
+
+      // Atualiza os campos de input com os valores da query string (facilita o preenchimento após a atualização)
+      document.getElementById('usuario').value = usuario;
+      document.getElementById('senha').value = senha;
+      document.getElementById('tipo').value = tipo;
+    }
+
+    // Função para limpar os campos de entrada e as exibições
+    function limparCampos() {
+      // Limpar campos de input
+      document.getElementById('usuario').value = '';
+      document.getElementById('senha').value = '';
+      document.getElementById('tipo').value = 'aluno'; // Definido como padrão, pode ser 'professor' também
+      // Limpar exibições de dados
+      document.getElementById('usuarioDisplay').textContent = 'Não informado';
+      document.getElementById('senhaDisplay').textContent = 'Não informada';
+      document.getElementById('tipoDisplay').textContent = 'Não informado';
+    }
+
+    // Atualiza os dados assim que a página é carregada
+    window.onload = atualizarExibicao;
+</script>
+
+</body>
+</html>

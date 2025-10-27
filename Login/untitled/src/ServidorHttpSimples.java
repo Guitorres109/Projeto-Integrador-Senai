@@ -68,7 +68,7 @@ public class ServidorHttpSimples {
 
     // Envia um arquivo (HTML ou CSS)
     private static void enviarArquivo(com.sun.net.httpserver.HttpExchange troca, String caminho, String tipo) throws IOException {
-        File arquivo = new File("untitled/src/" + caminho);
+        File arquivo = new File("Login/untitled/src/" + caminho);
         if (!arquivo.exists()) {
             System.out.println("Arquivo não encontrado: " + arquivo.getAbsolutePath());
         }
