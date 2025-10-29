@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="assets/images/AcademyFlow-logo.png">
+<title>Login</title>
+<body>
+<main>
+    <section class="container">
+        <div class="cabecalho">
+            <img src="assets/images/logo.png" alt="">
+            <img src="assets/images/AcademyFlow-nome (1).png" alt="" id="nomeplataforma">
+        </div>
+        <div class="bloco">
+            <label for="usuario">Usuário</label>
+            <input type="text" placeholder="Nome Completo" id="usuario" name="usuario" required>
+        </div>
+        <div class="bloco">
+            <label for="senha">Senha</label>
+            <div class="inputsenha">
+                <input type="password" placeholder="Mínimo 8 caracteres" id="senha" name="senha" minlength="8" required>
+                <button type="button" id="botaosenha" onclick="togglePassword()">👁️</button>
+            </div>
+        </div>
+        <div class="bloco">
+            <label for="tipo">Perfil</label>
+            <select id="tipo">
+                <option value="Selecionar" style="font-weight: 50;">Selecionar</option>
+                <option value="aluno">Aluno</option>
+                <option value="professor">Professor</option>
+            </select>
+        </div>
+        <button type="submit" onclick="enviarDados()" onclick="location.reload()" onclick="window.onload = atualizarExibicao" id="enviar">Enviar</button>
+    </section>
+</main>
+<script src="script.js"></script>
+</body>
+</html>

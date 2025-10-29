@@ -1,10 +1,5 @@
 // Função para exibir a senha (mostrar/esconder)
-
-const usuario = null;  // Ou você pode usar uma string vazia: const usuario = "";
-const senha = '';      // Inicializando com uma string vazia (pode ser qualquer valor padrão)
-const tipo = undefined;  // Ou qualquer outro valor padrão que você queira
-
-function togglePassword() {
+    function togglePassword() {
       var senha = document.getElementById("senha");
       if (senha.type === "password") {
         senha.type = "text"; // Mudar para mostrar a senha
@@ -25,9 +20,9 @@ function togglePassword() {
       const params = new URLSearchParams(window.location.search);
 
       // Pega os parâmetros da query string
-      tipo = params.get('tipo') || 'Não informado';
-      usuario = params.get('usuario') || 'Não informado';
-      senha = params.get('senha') || 'Não informada';
+      const tipo = params.get('tipo') || 'Não informado';
+      const usuario = params.get('usuario') || 'Não informado';
+      const senha = params.get('senha') || 'Não informada';
 
       // Atualiza os elementos HTML com os valores
       document.getElementById('usuarioDisplay').textContent = usuario;

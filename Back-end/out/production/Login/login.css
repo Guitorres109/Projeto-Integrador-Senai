@@ -107,11 +107,11 @@ body{
         border-bottom-left-radius: 0px;
     }
 #tipo {
-    font-family: Arial, sans-serif; 
-    font-size: 14px; 
-    background-color: #fafafa; 
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    background-color: #fafafa;
     padding: 10px;
-    border-radius: 8px; 
+    border-radius: 8px;
     border: none;
     cursor: pointer;
     font-weight: 700;
@@ -123,41 +123,4 @@ body{
     background-color: #fff;
     color: #333;
     cursor: pointer;
-}
-
-.alert {
-    display: none; /* Inicialmente oculto */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #21365E;
-    border: 1px outset #4DAAD6;
-    color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-}
-
-.alert-content {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: top;
-}
-
-.alert button {
-    background-color: #4DAAD6;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 8px 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 15px;
-}
-
-.alert button:hover {
-    background-color: #357fa3;
 }

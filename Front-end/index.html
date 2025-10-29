@@ -12,6 +12,12 @@
 </head>
 <body>
   <main>
+    <div id="customAlert" class="alert">
+        <div class="alert-content">
+            <span id="alertMessage"></span>
+            <button onclick="hideAlert()">OK</button>
+      </div>
+    </div>
       <section class="container">
           <div class="cabecalho">
               <img src="assets/images/logo.png" alt="">
@@ -36,7 +42,7 @@
                 <option value="professor">Professor</option>
               </select>
           </div>
-          <a href="assets/pages/professor.html">
+          <a href="#">
             <button onclick="enviarDados()" onclick="location.reload()" id="enviar">Enviar</button>
           </a>
       </section>

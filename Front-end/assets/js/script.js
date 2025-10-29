@@ -59,11 +59,11 @@ function togglePassword() {
         const tipo = document.getElementById('tipo').value;
     
         if (!usuario || !senha) {
-          alert('Por favor, preencha o nome e a senha.');
+          showAlert('Por favor, preencha o nome e a senha.');
           return;
         }
         if(tipo==="Selecionar"){
-          alert('Adicione um perfil de usuario.')
+          showAlert('Adicione um perfil de usuario.')
           return
         }
     
@@ -79,3 +79,15 @@ function togglePassword() {
         limparCampos();
         window.location.reload();
     }
+function showAlert() {
+    const alertBox = document.getElementById('customAlert');
+    const alertMessage = document.getElementById('alertMessage');
+    alertMessage.textContent = 'Preencha as informações corretamente'; // Mensagem personalizada
+    alertBox.style.display = 'block'; // Exibe o alerta
+}
+
+// Função para esconder o alerta
+function hideAlert() {
+    const alertBox = document.getElementById('customAlert');
+    alertBox.style.display = 'none'; // Esconde o alerta
+}
