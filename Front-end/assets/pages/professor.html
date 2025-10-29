@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/professor.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" href="../images/AcademyFlow-logo.png">
     <title>AcademyFlow</title>
 </head>
@@ -18,6 +18,9 @@
                 <img src="../images/AcademyFlow-nome (1).png" alt="" id="nomeplataforma">
             </div>
             <div class="sair">
+                <div class="ola">
+                    <p id="ola"><span>Professor:</span> Guilherme Torres</p>
+                </div>
                 <a href="/Projeto Integrador/index.html">
                     <button id="sair"><img src="../images/sair.png" alt=""></button>
                 </a>
@@ -28,7 +31,7 @@
     <main>
         <section class="criar">
             <div class="titulopublicar">
-                <h2>Publicar</h2>
+                <h2>Adicionar Atividades</h2>
             </div>
             <form action="">
                 <div class="publicar">
@@ -54,29 +57,37 @@
                 </div>
             </section>
         </a>
-        <a href="#">
+        <a href="#" id="linkbloco">
             <section class="bloco">
                 <div class="titulo">
                     <h2>Lorem ipsum dolor sit amet.</h2>
                 </div>
                 <div class="conteudo">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem voluptates consectetur minus eligendi pariatur vel nihil molestias itaque eos dolorem exercitationem, cupiditate, ab reiciendis nam obcaecati aliquid fugiat saepe ullam.
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus dolor eveniet quibusdam et natus eos vitae quia enim! Voluptatem sunt nihil tempore adipisci aliquid aperiam natus maiores in labore ratione. Alias laboriosam dolorum id ab, repellendus voluptates neque dicta tempore et hic molestias natus adipisci deserunt, at beatae sit dolore ullam maxime! Iure nihil tempora unde rem ratione sed eveniet!
                 </div>
             </section>
         </a>
-        <a href="#">
+        <a href="#" id="linkbloco">
             <section class="bloco">
                 <div class="titulo">
                     <h2>Lorem ipsum dolor sit amet.</h2>
                 </div>
                 <div class="conteudo">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem voluptates consectetur minus eligendi pariatur vel nihil molestias itaque eos dolorem exercitationem, cupiditate, ab reiciendis nam obcaecati aliquid fugiat saepe ullam.
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus dolor eveniet quibusdam et natus eos vitae quia enim! Voluptatem sunt nihil tempore adipisci aliquid aperiam natus maiores in labore ratione. Alias laboriosam dolorum id ab, repellendus voluptates neque dicta tempore et hic molestias natus adipisci deserunt, at beatae sit dolore ullam maxime! Iure nihil tempora unde rem ratione sed eveniet!
                 </div>
             </section>
         </a>
     </main>
     <footer>
-
+        <section class="info">
+            <p>Desenvolvido por: Sigma100 softwere</p>
+        </section>
+        <section class="logo">
+            <img src="../images/Sigma100-removebg-preview.png" alt="">
+        </section>
     </footer>
+    <script src="../js/script.js">
+        document.getElementById("ola").innerHTML = "<span>Professor:</span> "+ nome;
+    </script>
 </body>
 </html>
