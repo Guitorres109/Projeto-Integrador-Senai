@@ -18,14 +18,14 @@ body{
     background-position: center;      /* centraliza */
     background-attachment: fixed;     /* fixa a imagem ao rolar */
     font-family: Arial, Helvetica, sans-serif;
-    padding: 0;
+    padding: 10px;
     margin: 0;
     }
     main{
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 800px;
+        height: 770px;
     }
     .container{
         background-color: rgba(240, 239, 239, 0.452);
@@ -178,4 +178,5 @@ footer{
 footer img{
     height: auto;
     width: 70px;
+    margin-left: 30px;
 }
