@@ -1,5 +1,8 @@
 @import url(geral.css);
 
+*{
+    padding: 0;
+}
 .cabecalho{
     display: flex;
     align-items: center;
@@ -13,33 +16,38 @@
     height: 50px;
 }
 body{
-    background: black;
-    background-image: url("../assets/images/escola.png"), linear-gradient(to bottom , black , black);
+    background: var(--White);
     background-size: cover;           /* cobre toda a tela */
     background-repeat: no-repeat;     /* não repete */
     background-position: center;      /* centraliza */
     background-attachment: fixed;     /* fixa a imagem ao rolar */
     font-family: Arial, Helvetica, sans-serif;
-    padding: 10px;
+    padding: 0;
     margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     }
     main{
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 770px;
+        height: 800px;
+        margin-top: 50px;
     }
     .container{
-        background-color: rgba(240, 239, 239, 0.452);
+        background-color: var(--L_Grey);
         padding: 30px;
-        border-radius: 10px;
-        width: 300px;
-        height: 450px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        width: 400px;
+        height: 650px;
         text-align: center;
         flex-direction: column;
-        margin-top: 200px;
-        backdrop-filter: blur(8px);
-        margin-bottom: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .container h2{
         font-size: 32px;
@@ -47,14 +55,16 @@ body{
         font-optical-sizing: auto;
         font-weight: weight;
         font-style: normal;
-        color: white;
+        color: var(--Black);
         margin-left: 10px;
     }
     form{
         height: 80%;
+        width: 90%;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
+        font-family: Arial, Helvetica, sans-serif
     }
     #enviar{
         margin-top: 40px;
@@ -63,7 +73,7 @@ body{
         width: 150px;
         background: #4DAAD6;
         border-radius: 10px;
-        color: white;
+        color: var(--White);
         border: 0;
         font-size: 18px;
         font-weight:bold ;
@@ -81,7 +91,9 @@ body{
         gap: 10px;
         margin-top: 20px;
         font-weight: bold;
-        color: white;
+        color: var(--White);
+        font-family: Arial, Helvetica, sans-serif;
+    
     }
     .bloco input{
         width: 96%;
@@ -168,6 +180,38 @@ body{
 
 .alert button:hover {
     background-color: #357fa3;
+}
+.infos{
+    width: 60%;
+    height: 650px;
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: var(--Silver);
+    border-top-right-radius:10px ;
+    border-bottom-right-radius: 10px;
+    border: solid 1px var(--L_Grey);
+}
+.infos img{
+    width: 300px;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid var(--Primary);
+}
+.infos-content{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.linha{
+    width: 90%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 50px;
 }
 footer{
     width: 100%;

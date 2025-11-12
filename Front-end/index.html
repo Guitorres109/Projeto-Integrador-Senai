@@ -1,60 +1,80 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/login.css">
-  <link rel="stylesheet" href="css/geral.css">
-  <link rel="icon" href="assets/images/AcademyFlow-logo.png">
-  <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./Src/Style/style.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/geral.css">
+    <link rel="icon" href="./assets/images/AcademyFlow-logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+    <title>AcademyFlow | Home</title>
 </head>
 <body>
-  <main>
-    <!-- Alerta personalizado -->
-    <div id="customAlert" class="alert" style="display: none;">
-      <div class="alert-content">
-        <span id="alertMessage"></span>
-        <button type="button" onclick="hideAlert()">OK</button>
-      </div>
-    </div>
-    <section class="container">
-      <form onsubmit="event.preventDefault(); enviarDados();">
-        <div class="cabecalho">
-          <img src="assets/images/logo.png" alt="">
-          <img src="assets/images/AcademyFlow-nome (1).png" alt="" id="nomeplataforma">
+    <header>
+        <div class="logo-header">
+            <a href="#">
+                <img src="./assets/images/AcademyFlow-nome (1).png" alt="Logo AcademyFlow">
+            </a>
         </div>
-
-        <div class="bloco">
-          <label for="usuario">Usuário</label>
-          <input type="text" placeholder="Nome Completo" id="usuario" name="usuario" required>
+        <nav class="nav-header">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Atividades</a></li>
+                <li><a href="#">Quero ser parceiro</a></li>
+                <li><a href="#">Seja Patrocinador</a></li>
+            </ul>
+        </nav>
+        <div class="container-btn-header">
+            <button class="btn-login"><a href="./pages/login.html">Entrar</a></button>
+            <button class="btn-sign-up"><a href="">Inscreva-se</a></button>
         </div>
-
-        <div class="bloco">
-          <label for="senha">Senha</label>
-          <div class="inputsenha">
-            <input type="password" placeholder="Mínimo 8 caracteres" id="senha" name="senha" minlength="8" required>
-            <button type="button" id="botaosenha" onclick="togglePassword()">👁️</button>
-          </div>
-        </div>
-
-        <div class="bloco">
-          <label for="tipo">Perfil</label>
-          <select id="tipo" name="tipo" required>
-            <option value="">Selecionar</option>
-            <option value="aluno">Aluno</option>
-            <option value="professor">Professor</option>
-          </select>
-        </div>
-        <a href="#">
-          <button type="submit" id="enviar">Enviar</button>
-        </a>
-      </form>
-    </section>
-  </main>
-  <footer><a href="./pages/dev.html"><img src="assets/images/Sigma100-removebg-preview.png" alt=""></a></footer>
-  <script src="assets/js/script.js"></script>
+    </header>
+    <main>
+        <section class="content-hero-section">
+            <div class="content-hero">
+                <h1><span>AcademyFlow</span><br>O futuro da Educação</h1>
+                <p>Venha ver a nova plataforma de Gerenciamento Escolar!</p>
+                <button class="btn-primary"><a href="#">Inscreva-se</a></button>
+            </div>
+            <div>
+                <img src="./assets/images/AcademyFlow-logo.png" alt="Desenho ilustrativo de uma pessoa usando um computador">
+            </div>
+        </section>
+        <section class="manage reveal">
+            <div class="topo">
+                <h2>O gerenciamento que<br> sua <span>escola</span> está <span>precisando!</span></h2>
+                <p>Veja nossos beneficios</p>
+            </div>
+            <div class="content-manage">
+                <div class="bloco">
+                    <img src="Src/Assets/images/Icon.svg" alt="">
+                    <h2>Suporte todos <br>os dias da semana</h2>
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem esse quaerat voluptatibus in voluptatem quas!</p>
+                </div>
+                <div class="bloco">
+                    <img src="Src/Assets/images/Icon2.svg" alt="">
+                    <h2>Facilidade para <br> todas as idades!</h2>
+                    <p>Our membership management software provides full automation of membership renewals and payments</p>
+                </div>
+                <div class="bloco">
+                    <img src="Src/Assets/images/Icon3.svg" alt="">
+                    <h2>Aprovado por <br> professores do SENAI!</h2>
+                    <p>Our membership management software provides full automation of membership renewals and payments</p>
+                </div>
+            </div>
+        </section>
+        <section class="unseen reveal">
+            <img src="./assets/images/escola.png" alt="">
+            <div class="unseen-content">
+                <h2>Atendemos escolas de alto nivel</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet justo ipsum. Sed accumsan quam vitae est varius fringilla. Pellentesque placerat vestibulum lorem sed porta. Nullam mattis tristique iaculis. Nullam pulvinar sit amet risus pretium auctor. Etiam quis massa pulvinar, aliquam quam vitae, tempus sem. Donec elementum pulvinar odio.</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        
+    </footer>
+    <script src="./js/script.js"></script>
 </body>
 </html>
