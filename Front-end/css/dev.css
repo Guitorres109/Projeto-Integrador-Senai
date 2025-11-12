@@ -1,0 +1,43 @@
+@import url(geral.css);
+body{
+    background-image: url(../assets/images/escola.png);
+    background-size: cover;           /* cobre toda a tela */
+    background-repeat: no-repeat;     /* não repete */
+    background-position: center;      /* centraliza */
+    background-attachment: fixed;     /* fixa a imagem ao rolar */
+}
+header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+}
+header h1{
+    font-size: 70px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+main{
+    width: 100%;
+    height: 800px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+}
+section{
+    background-color: rgba(240, 239, 239, 0.452);
+    backdrop-filter: blur(8px);
+    border-radius: 20px;
+    width: 20%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.foto{
+    width: 200px;
+    height: 200px;
+    background-color: red;
+    border-radius: 100%;
+}

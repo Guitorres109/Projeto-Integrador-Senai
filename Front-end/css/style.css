@@ -1,10 +1,7 @@
-*{
-    margin: 0;
-    padding: 0;
-}
+@import url(geral.css);
 body{
     background: #ffffff;
-    background-image: url(../images/escola.png);
+    background-image: url(../assets/images/escola.png);
     background-size: cover;           /* cobre toda a tela */
     background-repeat: no-repeat;     /* não repete */
     background-position: center;      /* centraliza */
