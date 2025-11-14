@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../css/login.css">
   <link rel="stylesheet" href="../css/geral.css">
   <link rel="icon" href="../assets/images/AcademyFlow-logo.png">
-  <title>AcademyFlow | Login</title>
+  <title>AcademyFlow | Inscreva-se</title>
 </head>
 <body>
   <main>
@@ -26,6 +26,10 @@
           <label for="usuario">Usuário</label>
           <input type="text" placeholder="Nome Completo" id="usuario" name="usuario" required>
         </div>
+        <div class="bloco">
+          <label for="usuario">E-Mail</label>
+          <input type="email" placeholder="Insira seu e-mail" id="email" name="email" required>
+        </div>
 
         <div class="bloco">
           <label for="senha">Senha</label>
@@ -34,17 +38,23 @@
             <button type="button" id="botaosenha" onclick="togglePassword()">👁️</button>
           </div>
         </div>
+        <div class="bloco">
+          <label for="senha">Confirmar Senha</label>
+          <div class="inputsenha">
+            <input type="password" placeholder="Confirmar Senha" id="senha" name="Confirmar-Senha" minlength="8" required>
+            <button type="button" id="confirmarsenha" onclick="togglePassword()">👁️</button>
+          </div>
+        </div>
 
         <div class="bloco">
           <label for="tipo">Perfil</label>
           <select id="tipo" name="tipo" required>
             <option value="">Selecionar</option>
             <option value="aluno">Aluno</option>
-            <option value="professor">Professor</option>
           </select>
         </div>
         <a href="#">
-          <button type="submit" id="enviar">Enviar</button>
+          <button  type="submit" id="enviar">Enviar</button>
         </a>
       </form>
     </section>
@@ -66,6 +76,39 @@
     </section>
   </main>
   <footer><a href="./pages/dev.html"><img src="assets/images/Sigma100-removebg-preview.png" alt=""></a></footer>
-  <script src="../js/script.js"></script>
+  <script src="../js/script.js">
+        let usuario;
+        let email;
+        let senha;
+        let confirmarsenha = document.getElementById('confirmarsenha').value;
+        let tipo;
+
+        function enviarDados() {
+          usuario = document.getElementById('usuario').value.trim();
+          email = document.getElementById('email').value;
+          senha = document.getElementById('senha').value;
+          tipo = document.getElementById('tipo').value;
+
+          if (!usuario || !senha) {
+            showAlert('Por favor, preencha o nome e a senha.');
+            return;
+          }
+
+          if (!tipo) {
+            showAlert('Por favor, selecione um perfil de usuário.');
+            return;
+          }
+          if(senha != confirmarsenha){
+            alert("As senhas não correspondem");
+            return;
+          }
+          const url = new URL(window.location.href);
+              url.searchParams.set('usuario', usuario);
+              url.searchParams.set('email', email);
+              url.searchParams.set('senha', senha);
+              url.searchParams.set('tipo', tipo);
+              window.history.pushState({}, '', url);
+}
+  </script>
 </body>
 </html>
