@@ -4,6 +4,7 @@
     border: 0;
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
+    transition: all 1.2s ease;
 }
 /* define variaveis CSS globais */
 :root{
@@ -15,6 +16,9 @@
     --Grey-Blue:#ABBED1;
     --Silver:#F5F7FA;
     --White: #ffffff;
+    --Whitelabel:#ffffff;
+    --Shadow:#F5F7FA;
+    --Link: blue;
     /* Primary */
     --Primary:#4DAAD6;
     --Secundary:#21365E;
@@ -29,7 +33,7 @@
     --Tint1:#66BB69;
     --Tint2:#81C784;
     --Tint3:#A5D6A7;
-    --tint4:#C8E6C9;
+    --Tint4:#C8E6C9;
     --Tint5:#E8F5E9;
     /* Action */
     --Warning:#FBC02D;
@@ -44,6 +48,18 @@
     --font-body2-height-regular:400;
     --font-body3-size:14px;
 }
+body.dark-mode {
+    --White: #242424;
+    --Black: #ffffff;
+    --L_Grey: #a5a5a5;
+    --Silver: #383838;
+    --Tint4: #8ACCFF;
+    --Primary: #6AB3FF;
+    --Grey:#d8d8d8;
+    --D_grey:#ffffff;
+    --Shadow:#575757;
+    --Link:rgb(0, 183, 255);
+}
 a{
     text-decoration:none ;
 }
@@ -55,12 +71,13 @@ h2{
     font-size: var(--font-headline-2-size);
     font-weight: var(--font-headline-weight);
 }
-header{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 30px 0px;
-    background-color: var(--White);  
+h3{
+    color: var(--D_grey);
+    font-size: var(--font-headline-2-size);
+    font-weight: var(--font-headline-weight);
+}
+span{
+    color: var(--Primary);
 }
 .logo-header img{
     width: 154px;
@@ -100,7 +117,7 @@ header{
     color: var(--Primary);
 }
 .container-btn-header .btn-sign-up a{
-    color: var(--White);
+    color: var(--Whitelabel);
 }
 .container-btn-header .btn-sign-up{
     background-color: var(--Primary);
@@ -119,8 +136,59 @@ header{
     transform: scale(1.07);
 }
 .btn-primary a{
-    color: var(--White);
+    color: var(--Whitelabel);
     font-size: var(--font-body3-size)
+}
+.buttons{
+    display: flex;
+    gap: 20px;
+}
+.navegation{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.navegation img{
+    width: 25px;
+    height: auto;
+}
+.navegation a{
+    transition:all ease 0.5s;
+}
+.navegation a:hover{
+    transform: translateY(-10px)
+}
+.dark-mode-button{
+    background-color: var(--White);
+    width: auto;
+    height: auto;
+}
+.dark-mode-button:hover{
+    transform: translateY(-3px);
+}
+.dark-mode-button img{
+    width: 30px;
+    height: auto;
+    cursor: pointer;
+}
+.dark-theme-img {
+    display: none;
+}
+
+/* Quando o tema escuro for ativado, mostrar a imagem do tema escuro */
+body.dark-mode .dark-theme-img {
+    display: block;
+}
+
+/* Quando o tema escuro for ativado, esconder a imagem do tema claro */
+body.dark-mode .light-theme-img {
+    display: none;
+}
+
+/* Se não estiver em modo escuro, a imagem do tema claro deve ser visível */
+body:not(.dark-mode) .light-theme-img {
+    display: block;
 }
 .reveal {
   opacity: 0;

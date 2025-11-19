@@ -20,28 +20,34 @@
         <nav class="nav-header">
             <ul>
                 <li><a href="#">Home</a></li>
-                <li><a href="#">Atividades</a></li>
-                <li><a href="#">Quero ser parceiro</a></li>
+                <li><a href="#beneficios">Beneficios</a></li>
+                <li><a href="#Desenvolvedores">Desenvolvedores</a></li>
                 <li><a href="#">Seja Patrocinador</a></li>
             </ul>
         </nav>
-        <div class="container-btn-header">
-            <button class="btn-login"><a href="./pages/login.html">Entrar</a></button>
-            <button class="btn-sign-up"><a href="./pages/inscreva-se.html">Inscreva-se</a></button>
+        <div class="buttons">
+            <div class="container-btn-header">
+                <button class="btn-login"><a href="./pages/login.html">Entrar</a></button>
+                <button class="btn-sign-up"><a href="./pages/inscreva-se.html">Inscreva-se</a></button>
+            </div>
+            <button class="dark-mode-button" id="toggle-theme" aria-label="Alternar modo escuro">
+                <img class="light-theme-img" src="./assets/images/dark-theme-svgrepo-com.svg" alt="Ícone Claro">
+                <img class="dark-theme-img" src="./assets/images/light-theme (2).svg" alt="Ícone Escuro">
+            </button>
         </div>
     </header>
     <main>
         <section class="content-hero-section">
             <div class="content-hero">
-                <h1><span>AcademyFlow</span><br>O futuro da Educação</h1>
+                <h1><span>AcademyFlow</span>,<br>O futuro da Educação</h1>
                 <p>Venha ver a nova plataforma de Gerenciamento Escolar!</p>
                 <button class="btn-primary"><a href="pages/inscreva-se.html">Inscreva-se</a></button>
             </div>
-            <div>
+            <div class="img">
                 <img src="./assets/images/AcademyFlow-logo.png" alt="Desenho ilustrativo de uma pessoa usando um computador">
             </div>
         </section>
-        <section class="manage reveal">
+        <section class="manage reveal" id="beneficios">
             <div class="topo">
                 <h2>O gerenciamento que<br> sua <span>escola</span> está <span>precisando!</span></h2>
                 <p>Veja nossos beneficios</p>
@@ -65,10 +71,59 @@
             </div>
         </section>
         <section class="unseen reveal">
-            <img src="./assets/images/escola.png" alt="">
+            <img src="./assets/images/vista-frontal-de-um-estudante-sexo-masculino-usando-uma-mochila-preta-segurando-cadernos-e-arquivos-na-parede-azul.jpg" alt="">
             <div class="unseen-content">
                 <h2>Atendemos <span>escolas </span>de <span>alto nivel</span></h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet justo ipsum. Sed accumsan quam vitae est varius fringilla. Pellentesque placerat vestibulum lorem sed porta. Nullam mattis tristique iaculis. Nullam pulvinar sit amet risus pretium auctor. Etiam quis massa pulvinar, aliquam quam vitae, tempus sem. Donec elementum pulvinar odio.</p>
+                <p>Atendemos escolas de alto nível, oferecendo soluções de excelência que elevam a qualidade do ensino, aprimoram a gestão e fortalecem a experiência educacional. Nosso compromisso é apoiar instituições que buscam inovação, eficiência e resultados superiores.</p>
+            </div>
+        </section>
+        <section class="equipe reveal" id="Desenvolvedores">
+            <h2>Conheça nosso <span>time</span> de <span>desenvolvimento</span>!</h2>
+            <div class="equipe-container">
+                <div class="integrante">
+                    <div class="integrante-img"><img src="./assets/images/guilherme.png" alt=""></div>
+                    <div class="integrante-content">
+                        <h3>Guilherme Torres</h3>
+                        <p><span>Gerente e Programador</span></p>
+                        <nav class="integrante-content-redes">
+                            <a href="https://www.instagram.com/guibtorres/?next=%2F" target="_blank"><img src="assets/images/instagram.png" alt="">@guibtorres</a>
+                            <a href="https://github.com/Guitorres109" target="_blank"><img src="./assets/images/git-hub.png" alt="">@guitorres109</a>
+                        </nav>
+                    </div>
+                </div>
+                <div class="integrante">
+                    <div class="integrante-img"><img src="./assets/images/joao.png" alt=""></div>
+                    <div class="integrante-content">
+                        <h3>João Pedro</h3>
+                        <p><span>Programador</span></p>
+                        <nav class="integrante-content-redes">
+                            <a href="https://www.instagram.com/_joaozinxt/?next=%2F" target="_blank"><img src="assets/images/instagram.png" alt="">@_joaozinxt</a>
+                            <a href="https://github.com/joaozinhotx" target="_blank"><img src="./assets/images/git-hub.png" alt="">@joaozinhotx</a>
+                        </nav>
+                    </div>
+                </div>
+                <div class="integrante">
+                    <div class="integrante-img"><img src="./assets/images/nicolas.png" alt=""></div>
+                    <div class="integrante-content">
+                        <h3>Nicolas Tordino</h3>
+                        <p><span>Designer e Programador</span></p>
+                        <nav class="integrante-content-redes">
+                            <a href="https://www.instagram.com/nttordino/?next=%2F" target="_blank"><img src="assets/images/instagram.png" alt="">@nttordino</a>
+                            <a href="https://github.com/nttordino" target="_blank"><img src="./assets/images/git-hub.png" alt="">@nttordino</a>
+                        </nav>
+                    </div>
+                </div>
+                <div class="integrante">
+                    <div class="integrante-img"><img src="./assets/images/pietro.png" alt=""></div>
+                    <div class="integrante-content">
+                        <h3>Pietro Pardim</h3>
+                        <p><span>Scrum Master</span></p>
+                        <nav class="integrante-content-redes">
+                            <a href="https://www.instagram.com/pietroohg/?next=%2F" target="_blank"><img src="assets/images/instagram.png" alt="">@pietroohg</a>
+                            <a href="https://github.com/pietroxz777" target="_blank"><img src="./assets/images/git-hub.png" alt="">@pietroxz777</a>
+                        </nav>
+                    </div>
+                </div>
             </div>
         </section>
     </main>

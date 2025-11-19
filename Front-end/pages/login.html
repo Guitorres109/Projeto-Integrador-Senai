@@ -12,6 +12,15 @@
   <title>AcademyFlow | Login</title>
 </head>
 <body>
+  <header>
+    <div class="navegation">
+        <a href="../index.html"><img src="../assets/images/main.svg" alt=""></a>
+        <button class="dark-mode-button" id="toggle-theme" aria-label="Alternar modo escuro">
+          <img class="light-theme-img" src="../assets/images/dark-theme-svgrepo-com.svg" alt="Ícone Claro">
+          <img class="dark-theme-img" src="../assets/images/light-theme (2).svg" alt="Ícone Escuro">
+        </button>
+      </div>
+  </header>
   <main>
     <!-- Alerta personalizado -->
     <div id="customAlert" class="alert" style="display: none;">
@@ -31,7 +40,7 @@
           <label for="senha">Senha</label>
           <div class="inputsenha">
             <input type="password" placeholder="Mínimo 8 caracteres" id="senha" name="senha" minlength="8" required>
-            <button type="button" id="botaosenha" onclick="togglePassword()">👁️</button>
+            <button type="button" id="botaosenha" class="revelar-senha" onclick="togglePassword()">👁️</button>
           </div>
         </div>
 
@@ -46,20 +55,21 @@
         <a href="#">
           <button type="submit" id="enviar">Enviar</button>
         </a>
+        <div class="cadastreseagora"><p>Não tem cadastro?</p><a href="inscreva-se.html">Cadastre-se Agora!</a></div>
       </form>
     </section>
     <section class="infos reveal">
       <div class="linha reveal">
         <img src="../assets/images/vista-frontal-de-um-estudante-sexo-masculino-usando-uma-mochila-preta-segurando-cadernos-e-arquivos-na-parede-azul.jpg" alt="">
         <div class="infos-content">
-          <h2>Atendemos escolas de alto nivel</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet justo ipsum. Sed accumsan quam vitae est varius fringilla. Pellentesque placerat vestibulum lorem sed porta. Nullam mattis tristique iaculis. Nullam pulvinar sit amet risus pretium auctor. Etiam quis massa pulvinar, aliquam quam vitae, tempus sem. Donec elementum pulvinar odio.</p>
+          <h2>Atendemos <span>escolas</span> de <span>alto nivel</span></h2>
+          <p>Atendemos escolas de alto nível, oferecendo soluções de excelência que elevam a qualidade do ensino, aprimoram a gestão e fortalecem a experiência educacional. Nosso compromisso é apoiar instituições que buscam inovação, eficiência e resultados superiores.</p>
         </div>
       </div>
       <div class="linha reveal">
         <div class="infos-content">
-          <h2>Atendemos escolas de alto nivel</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet justo ipsum. Sed accumsan quam vitae est varius fringilla. Pellentesque placerat vestibulum lorem sed porta. Nullam mattis tristique iaculis. Nullam pulvinar sit amet risus pretium auctor. Etiam quis massa pulvinar, aliquam quam vitae, tempus sem. Donec elementum pulvinar odio.</p>
+          <h2><span>Facilidade</span> para todas as idades!</h2>
+          <p>Uma experiência simples e intuitiva, pensada para oferecer facilidade e acessibilidade a pessoas de todas as idades, garantindo que todos possam aproveitar sem complicação.</p>
         </div>
         <img src="../assets/images/criancas-felizes-na-escola-primaria.jpg" alt="">
       </div>

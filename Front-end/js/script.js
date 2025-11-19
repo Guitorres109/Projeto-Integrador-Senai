@@ -8,6 +8,11 @@ function togglePassword() {
   senhaInput.type = senhaInput.type === "password" ? "text" : "password";
   document.getElementById("botaosenha").classList.toggle("ativo");
 }
+function togglePassword2() {
+  const senhaInput = document.getElementById("confirmarsenha");
+  senhaInput.type = senhaInput.type === "password" ? "text" : "password";
+  document.getElementById("botaoconfirmarsenha").classList.toggle("ativo");
+}
 
 // Exibir alerta personalizado
 function showAlert(mensagem) {
@@ -35,7 +40,6 @@ function enviarDados() {
   usuario = document.getElementById('usuario').value.trim();
   senha = document.getElementById('senha').value;
   tipo = document.getElementById('tipo').value;
-  respostaDiv = document.getElementById('resposta');
 
   if (!usuario || !senha) {
     showAlert('Por favor, preencha o nome e a senha.');
@@ -56,6 +60,26 @@ function enviarDados() {
 
   // Se quiser fazer algo com esses dados, coloque aqui.
 }
+function toggleTheme() {
+    document.body.classList.toggle("dark-mode");
+
+    // salvar preferência
+    if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("tema", "escuro");
+    } else {
+        localStorage.setItem("tema", "claro");
+    }
+    const darkModeButton = document.querySelector('.dark-mode-button');
+}
+
+// botão
+document.getElementById("toggle-theme").addEventListener("click", toggleTheme);
+
+// carregar preferencia ao abrir a página
+if (localStorage.getItem("tema") === "escuro") {
+    document.body.classList.add("dark-mode");
+}
+
 
 // Atualiza a exibição ao carregar a página
 window.onload = atualizarExibicao;
