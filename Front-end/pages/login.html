@@ -30,7 +30,7 @@
       </div>
     </div>
     <section class="container reveal">
-      <form onsubmit="event.preventDefault(); enviarDados();">
+      <form onsubmit="event.preventDefault(); verificar_usuario();">
         <div class="bloco">
           <label for="usuario">Usuário</label>
           <input type="text" placeholder="Nome Completo" id="usuario" name="usuario" required>
@@ -52,9 +52,7 @@
             <option value="professor">Professor</option>
           </select>
         </div>
-        <a href="#">
           <button type="submit" id="enviar">Enviar</button>
-        </a>
         <div class="cadastreseagora"><p>Não tem cadastro?</p><a href="inscreva-se.html">Cadastre-se Agora!</a></div>
       </form>
     </section>
@@ -76,6 +74,6 @@
     </section>
   </main>
   <footer><a href="./pages/dev.html"><img src="assets/images/Sigma100-removebg-preview.png" alt=""></a></footer>
-  <script src="../js/script.js"></script>
+  <script src="../js/inscreva-se.js"></script>
 </body>
 </html>

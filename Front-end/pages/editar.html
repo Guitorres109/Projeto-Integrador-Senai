@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Músicas</title>
+    <link rel="stylesheet" href="/estilo.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            text-align: center;
+            display:flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: var(--White);
+            background-image: url(/xicara-de-cafe-e-fones-de-ouvido-perto-de-partituras.jpg);
+            background-size: cover;           /* cobre toda a tela */
+            background-repeat: no-repeat;     /* não repete */
+            background-position: center;      /* centraliza */
+            background-attachment: fixed;     /* fixa a imagem ao rolar */
+
+        }
+        main{
+            width: 100%;
+            height: 890px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        h1, h2 {
+            margin-top: 50px;
+            color: #ffffff;
+            font-size: 50px;
+        }
+
+        .menu a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: transform 0.20s ease;
+            font-weight: bold;
+        }
+
+        .menu a:hover {
+            background-color: #45a049;
+            transform: scale(1.07);
+        }
+        .container{
+            background-color: rgba(134, 134, 134, 0.705);
+            backdrop-filter: blur(10px);
+            width:900px ;
+            height: 300px;
+            border-radius: 30px;
+            border: 4px inset white;
+        }
+        .bloco{
+            background-color: rgba(134, 134, 134, 0.705);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 500px;
+            height: 700px;
+            border: 4px inset #4DAAD6;
+        }
+        form {
+            display: inline-block;
+            text-align: center;
+            width: 80%;
+            height: 80%;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        input, button {
+            width: 90%;
+            padding: 8px;
+            border: none;
+            border-radius: 10px;
+            height: 20px;
+        }
+        .input{
+            width: 100%;
+            height: 100px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: white;
+        }
+        .bloco button{
+            background-color: #4DAAD6;
+            height: 50px;
+            width:95% ;
+            cursor: pointer;
+            color: white;
+            transition: transform 0.20s ease;
+        }
+        .bloco button:hover{
+            transform: scale(1.07);
+        }
+        .bloco a{
+            color: white;
+            margin-bottom: 20px;
+            text-decoration: none;
+        }
+
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+        th, td {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section class="bloco">
+            <h2>Cadastrar Atividade</h2>
+            <form method="POST" action="/cadastro">
+                <div class="input">
+                    <label>Nome:</label><br>
+                    <input type="text" name="nome-atividade" required><br>
+                </div>
+                <div class="input">
+                    <label>Descrição:</label><br>
+                    <input type="text" name="descricao-atividade" maxlength="50" required><br>
+                </div>
+                <div class="input">
+                    <label>Local:</label><br>
+                    <input type="text" name="local" required><br>
+                </div>
+                <div class="input">
+                    <label>Horário:</label><br>
+                    <input type="datetime-local" name="data-e-horario" required><br>
+                </div>
+                <button type="submit">Cadastrar</button>
+            </form>
+            <a href="../pages/acesso-professor.html">Voltar</a>
+        </section>
+    </main>
+</body>
+</html>
