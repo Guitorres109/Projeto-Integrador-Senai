@@ -97,3 +97,38 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.5 });
 
 items.forEach(item => observer.observe(item));
+// Função para alternar a visibilidade do bloco e da sobreposição
+function toggleVisibility(buttonId, elementId, overlayId, action) {
+    const button = document.getElementById(buttonId);
+    const element = document.getElementById(elementId);
+    const overlay = document.getElementById(overlayId);
+
+    // Verifica se o botão, o elemento e a sobreposição existem
+    if (!button || !element || !overlay) {
+        console.log("Botão, elemento ou sobreposição não encontrado!");
+        return;
+    }
+
+    // Adiciona o evento de clique no botão
+    button.addEventListener('click', function() {
+        if (action === 'show') {
+            // Exibe o bloco e a sobreposição
+            element.style.display = 'flex';
+            overlay.style.display = 'block';
+        } else if (action === 'hide') {
+            // Esconde o bloco e a sobreposição
+            element.style.display = 'none';
+            overlay.style.display = 'none';
+        }
+    });
+}
+
+// Aguarda o carregamento completo do DOM
+document.addEventListener('DOMContentLoaded', function() {
+    // Chama a função para mostrar o bloco e a sobreposição ao clicar no primeiro botão
+    toggleVisibility('mostrar-bloco', 'bloco-atividade', 'overlay', 'show');
+
+    // Chama a função para esconder o bloco e a sobreposição ao clicar no botão "Voltar"
+    toggleVisibility('voltar-bloco', 'bloco-atividade', 'overlay', 'hide');
+});
+

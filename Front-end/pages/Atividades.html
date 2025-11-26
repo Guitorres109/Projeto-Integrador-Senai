@@ -16,23 +16,17 @@
                 <img src="../assets/images/AcademyFlow-nome (1).png" alt="Logo AcademyFlow">
             </a>
         </div>
-        <nav class="nav-header">
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../index.html">Beneficios</a></li>
-                <li><a href="../index.html">Desenvolvedores</a></li>
-                <li><a href="../index.html">Seja Patrocinador</a></li>
-            </ul>
-        </nav>
-        <div class="buttons">
+        <div class="nav">
             <div class="container-btn-header">
-                <h4>Aluno:</h4>
-                <p>Guilherme Torres</p>
+                    <h4>Bem-Vindo Aluno!</h4>
+                    <p id="nome-usuario"></p>
+                </div>
+            <div class="buttons">
+                <button class="dark-mode-button" id="toggle-theme" aria-label="Alternar modo escuro">
+                    <img class="light-theme-img" src="../assets/images/dark-theme-svgrepo-com.svg" alt="Ícone Claro">
+                    <img class="dark-theme-img" src="../assets/images/light-theme (2).svg" alt="Ícone Escuro">
+                </button>
             </div>
-            <button class="dark-mode-button" id="toggle-theme" aria-label="Alternar modo escuro">
-                <img class="light-theme-img" src="../assets/images/dark-theme-svgrepo-com.svg" alt="Ícone Claro">
-                <img class="dark-theme-img" src="../assets/images/light-theme (2).svg" alt="Ícone Escuro">
-            </button>
         </div>
     </header>
     <main>
@@ -94,6 +88,13 @@
             </div>
         </section>
     </main>
+    <script src="../js/login.js"></script>
     <script src="../js/script.js"></script>
+    <script>
+        window.onload = function() {
+            // Aqui você já pode acessar a variável global 'usuario_existe'
+            document.getElementById("nome-usuario").innerHTML = usuario_existe;
+        };
+    </script>
 </body>
 </html>

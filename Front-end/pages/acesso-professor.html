@@ -16,23 +16,17 @@
                 <img src="../assets/images/AcademyFlow-nome (1).png" alt="Logo AcademyFlow">
             </a>
         </div>
-        <nav class="nav-header">
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="../index.html">Beneficios</a></li>
-                <li><a href="../index.html">Desenvolvedores</a></li>
-                <li><a href="../index.html">Seja Patrocinador</a></li>
-            </ul>
-        </nav>
-        <div class="buttons">
+        <div class="nav">
             <div class="container-btn-header">
-                <h4>Professor:</h4>
-                <p>Nome</p>
+                    <h4>Bem-Vindo Professor!</h4>
+                    <p id="nome-usuario"></p>
+                </div>
+            <div class="buttons">
+                <button class="dark-mode-button" id="toggle-theme" aria-label="Alternar modo escuro">
+                    <img class="light-theme-img" src="../assets/images/dark-theme-svgrepo-com.svg" alt="Ícone Claro">
+                    <img class="dark-theme-img" src="../assets/images/light-theme (2).svg" alt="Ícone Escuro">
+                </button>
             </div>
-            <button class="dark-mode-button" id="toggle-theme" aria-label="Alternar modo escuro">
-                <img class="light-theme-img" src="../assets/images/dark-theme-svgrepo-com.svg" alt="Ícone Claro">
-                <img class="dark-theme-img" src="../assets/images/light-theme (2).svg" alt="Ícone Escuro">
-            </button>
         </div>
     </header>
     <main>
@@ -40,9 +34,31 @@
             <div class="tituloh1">
                 <h1>Mural de Atividades</h1>
             </div>
-            <div class="editar">
-                <button class="editar"><a href="./editar.html">✏️ Editar Mural</a></button>
-            </div>
+            <button class="editar" id="mostrar-bloco">✏️ Editar Mural</button>
+            <div id="overlay"></div>
+            <div class="bloco-atividade" id="bloco-atividade">
+            <h2>Cadastrar Atividade</h2>
+            <form method="POST" action="/cadastro">
+                <div class="input">
+                    <label>Nome:</label><br>
+                    <input type="text" name="nome-atividade" placeholder="Insira o nome da atividade" required><br>
+                </div>
+                <div class="input">
+                    <label>Descrição:</label><br>
+                    <input type="text" name="descricao-atividade" maxlength="50" placeholder="Insira uma breve descrição da atividade" required><br>
+                </div>
+                <div class="input">
+                    <label>Local:</label><br>
+                    <input type="text" name="local" placeholder="Insira o local que será realizado a atividade" required><br>
+                </div>
+                <div class="input">
+                    <label>Horário:</label><br>
+                    <input type="datetime-local" name="data-e-horario" required><br>
+                </div>
+                <button type="submit">Cadastrar</button>
+            </form>
+            <button id="voltar-bloco">Voltar</button>
+        </div>
         </section>
         <section class="atividades">
             <div class="container reveal">
@@ -97,6 +113,7 @@
             </div>
         </section>
     </main>
+    <!-- <script src="../js/login.js"></script> -->
     <script src="../js/script.js"></script>
 </body>
 </html>

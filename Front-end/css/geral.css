@@ -66,7 +66,7 @@ header{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 30px 0px;
+    padding: 30px;
     background-color: var(--White);  
     width: 100%;
     border-bottom: 2px solid var(--Silver);
@@ -111,6 +111,7 @@ span{
 }
 .container-btn-header{
     gap: 5px;
+
 }
 .container-btn-header button{
     cursor: pointer;
@@ -171,6 +172,8 @@ span{
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    gap: 20px;
+    padding: 20px;
 }
 .navegation img{
     width: 25px;
@@ -178,17 +181,12 @@ span{
 }
 .navegation a{
     transition:all ease 0.5s;
-}
-.navegation a:hover{
-    transform: translateY(-10px)
+    color: var(--Black);
 }
 .dark-mode-button{
     background-color: var(--White);
     width: auto;
     height: auto;
-}
-.dark-mode-button:hover{
-    transform: translateY(-3px);
 }
 .dark-mode-button img{
     width: 30px;
