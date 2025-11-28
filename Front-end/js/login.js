@@ -10,7 +10,7 @@ var senhas = {
 
 // Mapear o tipo de usuário para cada nome
 var tipos_usuario = {
-  "Guilherme Torres": "professor",
+  "Guilherme Torres": "aluno",
   "Nicolas Tordino": "professor",
   "João Pedro": "professor",
   "Pietro Pardim": "professor"
@@ -28,6 +28,9 @@ function verificar_usuario() {
     // Verifica se o usuário existe
     var usuario_existe = usuarios.includes(usuario_digitado);
 
+    // Salva o status de usuário_existe no localStorage
+    localStorage.setItem("usuario_existe", usuario_existe);
+
     // Verifica se a senha corresponde ao usuário
     var senha_existe = senhas[usuario_digitado] === senha_digitada;
 
@@ -44,19 +47,16 @@ function verificar_usuario() {
               // Redireciona para a página do aluno
               window.location.href = "Atividades.html"; // Página para alunos
           }
-        } // Acessa o tipo de usuário com base no nome
-        else{
+        } else {
           alert("Usuário não encontrado! Tente Novamente.");
         }
 
-        localStorage.setItem("usuario",usuario_digitado);
-        console.log(localStorage);
+        localStorage.setItem("usuario", usuario_digitado);
     } else {
-        // Login incorreto, impede o avanço
-        // document.getElementById('customAlert').style.display = 'block'; // Exibe o alerta personalizado
         alert("Usuário ou senha incorretos! Tente novamente.");
     }
 }
+
 
 
 function togglePassword() {

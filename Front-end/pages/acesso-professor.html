@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/professor.css">
+    <link rel="stylesheet" href="../css/atividades.css">
     <link rel="stylesheet" href="../css/geral.css">
     <link rel="icon" href="../assets/images/AcademyFlow-logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
@@ -18,7 +18,7 @@
         </div>
         <div class="nav">
             <div class="container-btn-header">
-                    <h4>Bem-Vindo Professor!</h4>
+                    <h4>Bem-Vindo Professor</h4>
                     <p id="nome-usuario"></p>
                 </div>
             <div class="buttons">
@@ -66,7 +66,12 @@
                 <div class="bloco-header">
                     <h3>Recitar o Hino Nacional</h3>
                     <div class="bloco-header-botao">
-                        <input type="checkbox" name="conclusao" id="conclusao">
+                        <button class="feito">
+                            <img src="../assets/images/icon-feito.svg" alt="Imagem" />
+                        </button>
+                        <button class="apagar">
+                            <img src="../assets/images/icon-apagar.svg" alt="">
+                        </button>
                     </div>
                 </div>
                 <div class="bloco-content">
@@ -78,42 +83,24 @@
                     <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum, nam.</p>
                 </div>
               </div>
-              <div class="bloco">
-                <div class="bloco-header">
-                    <h3>Titulo</h3>
-                    <div class="bloco-header-botao">
-                        <input type="checkbox" name="conclusao" id="conclusao">
-                    </div>
-                </div>
-                <div class="bloco-content">
-                    <div class="bloco-content-infos">
-                        <h6>00/00/00</h6>
-                        <h6>00h00</h6>
-                        <h6>Ginasio</h6>
-                    </div>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum, nam.</p>
-                </div>
-              </div>
-              <div class="bloco">
-                <div class="bloco-header">
-                    <h3>Titulo</h3>
-                    <div class="bloco-header-botao">
-                        <input type="checkbox" name="conclusao" id="conclusao">
-                    </div>
-                </div>
-                <div class="bloco-content">
-                    <div class="bloco-content-infos">
-                        <h6>00/00/00</h6>
-                        <h6>00h00</h6>
-                        <h6>Ginasio</h6>
-                    </div>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum, nam.</p>
-                </div>
-              </div> 
             </div>
         </section>
     </main>
     <!-- <script src="../js/login.js"></script> -->
     <script src="../js/script.js"></script>
+    <script>
+        window.onload = function() {
+            var usuario = localStorage.getItem("usuario"); // pega o valor salvo no localStorage
+            var usuario_existe = localStorage.getItem("usuario_existe") === "true"; 
+
+            if (usuario_existe) {
+                console.log("O usuário existe.");
+                document.getElementById("nome-usuario").innerHTML = usuario+"!";
+            } else {
+                console.log("O usuário não existe.");
+                document.getElementById("nome-usuario").innerHTML = "Nenhum usuário encontrado";
+            }
+        };
+    </script>
 </body>
 </html>

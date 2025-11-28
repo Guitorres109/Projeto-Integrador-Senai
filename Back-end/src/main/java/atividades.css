@@ -1,0 +1,291 @@
+/* @import url(geral.css); */
+
+body{
+    background-color: var(--White);
+    color: var(--Black);
+    align-items: center;
+}
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1200px;
+}
+.container-btn-header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.titulo{
+    width: 100%;
+    height: 200px;
+    background-color: var(--Silver);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+.tituloh1 h1 {
+  font-size: 80px;
+  display: inline-block; /* Necessário para a animação de width funcionar */
+  overflow: hidden; /* Esconde o texto enquanto está sendo "digitado" */
+  white-space: nowrap; /* Evita quebras de linha */
+  border-right: 3px solid var(--Black); /* Simula o cursor de digitação */
+  width: 0; /* Inicia com o texto oculto */
+  animation: digitar 4s steps(30) 1s forwards; /* Efeito de digitação */
+  color: var(--Primary);
+}
+
+.tituloh1 h1::after {
+  content: ''; /* Criar o "cursor" piscando */
+  display: inline-block;
+  width: 2px;
+  height: 100%;
+  background-color: var(--Black);
+  animation: piscar 0.8s step-end infinite; /* Efeito de piscar */
+}
+.editar{
+    background-color: var(--Primary);
+    width: 110px;
+    height: 30px;
+    color: var(--Whitelabel);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+a{
+    color: var(--Whitelabel);
+}
+.editar:hover{
+    transform: scale(1.05);
+}
+.atividades{
+    width: 100%;
+    height: 700px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.container{
+    width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 20px;
+}
+/* Estilos Gerais */
+.bloco {
+    background-color: var(--White);
+    border: 1px solid var(--Silver);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+    display:flex;
+    flex-direction:column;
+    gap: 20px;
+}
+
+.bloco p {
+    color: var(--Black);
+    font-size:19px;
+    margin-top: 10px;
+}
+
+/* Seção de informações */
+.info p {
+    font-size: 14px;
+    margin: 8px 0;
+    color: var(--Whitelabel)
+}
+
+.info strong {
+    color: var(--White);
+}
+
+/* Botões */
+.botoes {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+.botoes form {
+    display: inline-block;
+}
+
+.botoes button {
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    background-color: var(--Primary);
+}
+
+.botoes button img {
+    width: 16px;
+    height: 16px;
+}
+
+.botoes .feito {
+    background-color: var(--sucess);
+    color: white;
+}
+
+.botoes .nao-concluido {
+    background-color: var(--Primary);
+    color: white;
+}
+
+.botoes .excluir {
+    background-color: #f44336;
+    color: white;
+}
+
+.botoes button:hover {
+    opacity: 0.8;
+}
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Cor preta com 70% de opacidade */
+    display: none; /* Inicialmente escondido */
+    z-index: 50; /* Coloca a sobreposição atrás do bloco */
+}
+
+.bloco-atividade {
+    background-color: var(--Primary);
+    width: 500px;
+    height: 600px;
+    display: none;  /* Inicialmente escondido */
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    transition: all 0.7s ease;
+    border-radius: 20px;
+    border: 2px solid var(--Black);
+}
+.bloco-atividade h2{
+    color: var(--Whitelabel);
+}
+
+.bloco-atividade form{
+    width: 90%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.input{
+    width: 100%;
+    padding: 10px;
+    height: 100px;
+}
+.input label{
+    color: var(--Whitelabel);
+    font-weight: 500;
+}
+.input input{
+    width: 100%;
+    height: 40px;
+    margin-top: 10px;
+    border-radius: 5px;
+    padding: 10px;
+}
+form button{
+    width: 150px;
+    height:40px;
+    border-radius: 5px;
+    background-color: var(--Sucess);
+    color: var(--Whitelabel);
+    font-weight: bolder;
+    cursor: pointer;
+    font-size: 17px;
+    transition: all 0.5s ease;
+}
+form button:hover{
+    transform: scale(1.09);
+}
+#voltar-bloco{
+    background-color: transparent;
+    color: var(--Whitelabel);
+    cursor: pointer;
+    font-weight: bolder;
+}
+.feito{
+    background-color: var(--Whitelabel);
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+.feito img {
+    display: none;
+}
+
+/* Se a classe 'mostrar' for adicionada ao botão, a imagem aparece */
+.feito.mostrar img {
+    display: block;
+}
+
+.feito.mostrar{
+    background-color: var(--Checked);
+}
+.apagar{
+    background-color: var(--Error);
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+.bloco-header-botao img{
+    width: 50px;
+    height: auto;
+}
+.bloco-header-botao button:hover{
+    transform: scale(1.09);
+}
+
+.bloco-curtido {
+    background: var(--Sucess);
+    color: var(--Whitelabel);
+}
+
+/* VERMELHO = não curtir */
+.bloco-nao-curtido {
+    background: var(--Error);
+    color: var(--Whitelabel);
+
+}

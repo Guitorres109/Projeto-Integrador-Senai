@@ -132,3 +132,15 @@ document.addEventListener('DOMContentLoaded', function() {
     toggleVisibility('voltar-bloco', 'bloco-atividade', 'overlay', 'hide');
 });
 
+// Pega o botão e o bloco-header
+const botao = document.querySelector('.feito');
+const blocoHeader = document.querySelector('.bloco-header');
+
+// Quando o botão for clicado, alternamos a classe 'mostrar'
+botao.addEventListener('click', () => {
+    // Adiciona ou remove a classe 'mostrar' no botão
+    botao.classList.toggle('mostrar');
+    
+    // A alteração do estilo do bloco-header já é tratada pelo CSS com a classe 'mostrar'
+});
+
