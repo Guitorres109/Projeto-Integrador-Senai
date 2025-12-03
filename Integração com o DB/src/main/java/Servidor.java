@@ -339,6 +339,7 @@ public class Servidor {
                 html.append("</form>");
 
 // Botão EXCLUIR
+                html.append("<div class=\"overlay\"></div>");
                 html.append(("<button class=\"excluir\" onclick=\"mostrarConfirmacao()\">Excluir</button>"));
                 html.append("<div class=\"confirmacao\" id=\"confirmação\">");
                 html.append("<h2>Você tem certeza que deseja excluir esta atividade?");

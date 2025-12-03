@@ -146,10 +146,12 @@ botao.addEventListener('click', () => {
 
 function mostrarConfirmacao() {
     document.getElementById("confirmação").style.display = "block";
+    document.getElementById('overlay').classList.add('ativa');
 }
 
 function fecharConfirmacao() {
     document.getElementById("confirmação").style.display = "none";
+    document.getElementById('overlay').classList.add('ativa');
 }
 
 
