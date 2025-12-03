@@ -73,7 +73,8 @@ public class Servidor {
         s.createContext("/White-seta.svg", t -> enviarImagem(t, "White-seta.svg")); // Imagem
 
         s.start();
-        System.out.println("Servidor rodando em http://localhost:8082/");
+        System.out.println("Servidor Iniciado");
+        System.out.println("Rodando em http://localhost:8082/");
     }
 
     // -------------------- LOGIN --------------------
@@ -100,7 +101,7 @@ public class Servidor {
             ps.setString(1, nome);
             ps.setString(2, desc);
             ps.setString(3, data);
-            ps.setString(4, "nenhuma"); // ainda não curtido
+            ps.setString(4, "Não Concluido"); // ainda não curtido
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -108,7 +109,13 @@ public class Servidor {
         }
 
         redirecionar(t, "/cadastro");
+        System.out.println("-------------------------------------");
         System.out.println("Cadastro realizado");
+        System.out.println(" ");
+        System.out.println("Atividade: "+nome);
+        System.out.println("Descrição: "+desc);
+        System.out.println("Data:: "+data);
+        System.out.println("-------------------------------------");
     }
 
     // -------------------- CONSUMIDOR (lista todos os cards) --------------------
@@ -168,42 +175,45 @@ public class Servidor {
                 String curtida = rs.getString("curtida");
 
                 // Classe extra para cor do card
-                String classeExtra = "";
-                if ("curtir".equals(curtida)) {
-                    classeExtra = " card-curtido";
+                String classeExtra = "bloco";
+                if ("Concluido".equals(curtida)) {
+                    classeExtra = "card-curtido";
                 } else if ("nao".equals(curtida)) {
-                    classeExtra = " card-nao-curtido";
+                    classeExtra = "bloco";
                 }
 
-                html.append("<div class=\"bloco").append(classeExtra).append("\">");
-
+                html.append("<div class=\"")
+                        .append(classeExtra)
+                        .append("\">");
                 html.append("<div class=\"bloco-content\">");
-                //html.append("<p><strong>ID:</strong> ").append(id).append("</p>");
-                html.append("<p><strong>Nome:</strong> ").append(nome).append("</p>");
-                html.append("<p><strong>Descrição:</strong> ").append(desc).append("</p>");
+                html.append("<h2>").append(nome).append("</h2>");
                 html.append("<p><strong>Data:</strong> ").append(data).append("</p>");
                 html.append("<p><strong>Status:</strong> ").append(curtida).append("</p>");
+                html.append("<p>").append(desc).append("</p>");
                 html.append("</div>");
                 html.append("<div class=\"botoes\">");
-                // Botão CURTIR
+
+// Botão CONCLUIDO
                 html.append("<form method=\"POST\" action=\"/concluido_aluno\">");
                 html.append("<input type=\"hidden\" name=\"id\" value=\"").append(id).append("\">");
                 html.append("<input type=\"hidden\" name=\"acao\" value=\"Concluido\">");
-                html.append("<button type=\"submit\">Concluido</button>");
+                html.append("<button type=\"submit\">Concluído</button>");
                 html.append("</form>");
 
-                // Botão NÃO CURTIR
+// Botão NÃO CONCLUIDO
                 html.append("<form method=\"POST\" action=\"/concluido_aluno\">");
                 html.append("<input type=\"hidden\" name=\"id\" value=\"").append(id).append("\">");
                 html.append("<input type=\"hidden\" name=\"acao\" value=\"Não Concluido\">");
-                html.append("<button type=\"submit\">Não concluido</button>");
+                html.append("<button type=\"submit\">Não concluído</button>");
                 html.append("</form>");
 
+
                 html.append("</div>");
+                html.append("</div>"); // fecha div com classeExtra
             }
 
             if (vazio) {
-                html.append("<p>Nenhuma atividade cadastrada ainda.</p>");
+                html.append("<p class=\"Vazio\">Nenhuma atividade cadastrada ainda.</p>");
             }
 
         } catch (SQLException e) {
@@ -296,46 +306,52 @@ public class Servidor {
                 String curtida = rs.getString("curtida");
 
                 // Classe extra para cor do card
-                String classeExtra = "";
-                if ("curtir".equals(curtida)) {
-                    classeExtra = " card-curtido";
+                String classeExtra = "bloco";
+                if ("Concluido".equals(curtida)) {
+                    classeExtra = "card-curtido";
                 } else if ("nao".equals(curtida)) {
-                    classeExtra = " card-nao-curtido";
+                    classeExtra = "bloco";
                 }
 
-                html.append("<div class=\"bloco").append(classeExtra).append("\">");
-
+                html.append("<div class=\"")
+                        .append(classeExtra)
+                        .append("\">");
                 html.append("<div class=\"bloco-content\">");
-                //html.append("<p><strong>ID:</strong> ").append(id).append("</p>");
-                html.append("<h2><strong></strong> ").append(nome).append("</h2>");
+                html.append("<h2>").append(nome).append("</h2>");
                 html.append("<p><strong>Data:</strong> ").append(data).append("</p>");
                 html.append("<p><strong>Status:</strong> ").append(curtida).append("</p>");
-                html.append("<p><strong></strong> ").append(desc).append("</p>");
+                html.append("<p>").append(desc).append("</p>");
                 html.append("</div>");
-
                 html.append("<div class=\"botoes\">");
-                // Botão CURTIR
+
+// Botão CONCLUIDO
                 html.append("<form method=\"POST\" action=\"/concluido_professor\">");
                 html.append("<input type=\"hidden\" name=\"id\" value=\"").append(id).append("\">");
                 html.append("<input type=\"hidden\" name=\"acao\" value=\"Concluido\">");
-                html.append("<button type=\"submit\">Concluido</button>");
+                html.append("<button type=\"submit\">Concluído</button>");
                 html.append("</form>");
 
-                // Botão NÃO CURTIR
+// Botão NÃO CONCLUIDO
                 html.append("<form method=\"POST\" action=\"/concluido_professor\">");
                 html.append("<input type=\"hidden\" name=\"id\" value=\"").append(id).append("\">");
-                html.append("<input type=\"hidden\" name=\"acao\" value=\"nao\">");
-                html.append("<button type=\"submit\">Não concluido</button>");
+                html.append("<input type=\"hidden\" name=\"acao\" value=\"Não Concluido\">");
+                html.append("<button type=\"submit\">Não concluído</button>");
                 html.append("</form>");
 
+// Botão EXCLUIR
+                html.append(("<button class=\"excluir\" onclick=\"mostrarConfirmacao()\">Excluir</button>"));
+                html.append("<div class=\"confirmacao\" id=\"confirmação\">");
+                html.append("<h2>Você tem certeza que deseja excluir esta atividade?");
                 html.append("<form method=\"POST\" action=\"/excluir\">");
                 html.append("<input type=\"hidden\" name=\"id\" value=\"").append(id).append("\">");
                 html.append("<input type=\"hidden\" name=\"acao\" value=\"excluir\">");
                 html.append("<button class=\"excluir\" type=\"submit\">Excluir</button>");
                 html.append("</form>");
+                html.append(("<button onclick=\"fecharConfirmacao()\">Não Excluir</button>"));
                 html.append("</div>");
 
                 html.append("</div>");
+                html.append("</div>"); // fecha div com classeExtra
             }
 
             if (vazio) {
@@ -414,6 +430,7 @@ public class Servidor {
         redirecionar(t, "/acesso-professor");
     }
 
+
     private static void excluir(HttpExchange t) throws IOException {
 
         if (!t.getRequestMethod().equalsIgnoreCase("POST")) {
@@ -437,6 +454,7 @@ public class Servidor {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("Atividade excluida, ID: "+idStr);
 
         redirecionar(t, "/acesso-professor");
     }

@@ -144,3 +144,13 @@ botao.addEventListener('click', () => {
     // A alteração do estilo do bloco-header já é tratada pelo CSS com a classe 'mostrar'
 });
 
+function mostrarConfirmacao() {
+    document.getElementById("confirmação").style.display = "block";
+}
+
+function fecharConfirmacao() {
+    document.getElementById("confirmação").style.display = "none";
+}
+
+
+

@@ -39,7 +39,7 @@ header {
   white-space: nowrap; /* Evita quebras de linha */
   border-right: 3px solid var(--Black); /* Simula o cursor de digitação */
   width: 0; /* Inicia com o texto oculto */
-  animation: digitar 4s steps(30) 0s forwards; /* Efeito de digitação */
+  animation: digitar 4s steps(30) 1s forwards; /* Efeito de digitação */
   color: var(--Primary);
 }
 
@@ -264,9 +264,8 @@ form button:hover {
   margin: 20px auto;
   padding: 15px;
   border-radius: 12px;
-  border: 2px solid var(--Silver);
-  box-shadow: 0 2px 6px var(--Silver);
-  background: var(--White);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  background: #ffffff;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -287,17 +286,6 @@ form button:hover {
   border-left: 6px solid #2ecc71;
   background: #e9f9f1;
 }
-.card-curtido .bloco-content h2{
-      color: var(--Blacklabel);
-}
-
-.card-curtido .bloco-content p{
-      color: var(--Blacklabel);
-}
-
-.card-curtido .bloco-content p strong{
-      color: var(--Blacklabel);
-}
 
 /* Estilo para o conteúdo interno */
 .bloco-content {
@@ -308,19 +296,19 @@ form button:hover {
 .bloco-content h2 {
   font-size: 20px;
   margin-bottom: 10px;
-  color: var(--D_grey);
+  color: #333;
 }
 
 /* Estilo para os parágrafos */
 .bloco-content p {
   margin: 5px 0;
   font-size: 15px;
-  color: var(--Black);
+  color: #555;
 }
 
 /* Destaque para texto forte dentro dos parágrafos */
 .bloco-content p strong {
-  color: var(--D_grey);
+  color: #111;
 }
 
 /* Estilo para a área de botões */
@@ -380,90 +368,3 @@ form button:hover {
     padding: 8px 16px;
   }
 }
-
-.confirmacao {
-    position: absolute;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 20px;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-    width: 320px;
-    height: 160px;
-    display: none;
-    z-index: 9999;
-    text-align: center;
-    border-radius: 8px;
-    font-family: 'Arial', sans-serif;
-}
-
-.confirmacao h2 {
-    font-size: 18px;
-    margin-bottom: 15px;
-    color: #333;
-    font-weight: 600;
-}
-
-.confirmacao p {
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 20px;
-}
-
-.confirmacao button {
-    width: 130px;
-    height: 35px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: all 0.3s ease-in-out;
-}
-
-button.excluir {
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    font-size: 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin: 5px;
-    transition: all 0.3s ease-in-out;
-}
-
-button.excluir:hover {
-    background-color: #c0392b;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-button.excluir:active {
-    background-color: #c0392b;
-    transform: translateY(0);
-    box-shadow: none;
-}
-
-button.cancelar {
-    background-color: #bdc3c7;
-    color: #2c3e50;
-    border: none;
-    padding: 12px 25px;
-    font-size: 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin: 5px;
-    transition: all 0.3s ease-in-out;
-}
-
-button.cancelar:hover {
-    background-color: #95a5a6;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-button.cancelar:active {
-    background-color: #95a5a6;
-    transform: translateY(0);
-    box-shadow: none;
-}
-
-
