@@ -1,10 +1,11 @@
+// Importações de bibliotecas necessárias para o funcionamento do servidor HTTP, leitura e gravação de dados
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpExchange;
-import java.io.*;
-import java.net.InetSocketAddress;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-import java.sql.*;
+import java.io.*;                                       // Para manipulação de arquivos
+import java.net.InetSocketAddress;                      // Para definir o endereço do servidor
+import java.net.URLDecoder;                             // Para decodificar parâmetros URL
+import java.nio.charset.StandardCharsets;               // Para trabalhar com codificação de caracteres
+import java.sql.*;                                      // Para manipulação do banco de dados
 
 public class Servidor {
 
@@ -15,7 +16,7 @@ public class Servidor {
         // Conectar ao SQLite (arquivo conteudo.db na pasta do projeto)
         con = DriverManager.getConnection("jdbc:sqlite:conteudo.db");
 
-        // Criar tabela (se não existir)
+        // Criar tabela no Banco de dados (se não existir)
         String sql = "CREATE TABLE IF NOT EXISTS dados (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "nome TEXT," +
@@ -31,78 +32,76 @@ public class Servidor {
         // Rotas básicas
         s.createContext("/", t -> enviar(t, "index.html"));
         s.createContext("/login.html", t -> enviar(t, "login.html")); // mostra login
-        s.createContext("/cadastro", Servidor::cadastro);     // cadastro
-        s.createContext("/aluno", Servidor::aluno); // lista cards
-        s.createContext("/acesso-professor", Servidor::acesso_professor); // lista cards
-        s.createContext("/concluido_aluno", Servidor::concluido_aluno);       // curtir / não curtir
-        s.createContext("/concluido_professor", Servidor::concluido_professor);       // curtir / não curtir
-        s.createContext("/excluir", Servidor::excluir);       //excluir
-        s.createContext("/Atividades", t -> enviar(t, "Atividades.html"));   // Aluno
+        s.createContext("/cadastro", Servidor::cadastro);     // cadastro de atividades
+        s.createContext("/aluno", Servidor::aluno); // lista atividades para o aluno
+        s.createContext("/acesso-professor", Servidor::acesso_professor); // lista atividades para o professor
+        s.createContext("/concluido_aluno", Servidor::concluido_aluno);       // Concluido
+        s.createContext("/concluido_professor", Servidor::concluido_professor);       //Não concluido
+        s.createContext("/excluir", Servidor::excluir);       //excluir atividades
+        s.createContext("/Atividades", t -> enviar(t, "Atividades.html"));   // Pagina do aluno
         //s.createContext("/acesso-professor", t -> enviar(t, "acesso-professor.html"));   // Professor
 
         //Rotas de estilo
-        s.createContext("/style.css", t -> enviarCSS(t, "style.css")); // CSS
-        s.createContext("/login.css", t -> enviarCSS(t, "login.css")); // CSS
-        s.createContext("/geral.css", t -> enviarCSS(t, "geral.css")); // CSS
-        s.createContext("/atividades.css", t -> enviarCSS(t, "atividades.css")); // CSS
-        s.createContext("/listar.css", t -> enviarCSS(t, "listar.css")); // CSS
+        s.createContext("/css/style.css", t -> enviarCSS(t, "css/style.css")); // CSS
+        s.createContext("/css/login.css", t -> enviarCSS(t, "css/login.css")); // CSS
+        s.createContext("/css/geral.css", t -> enviarCSS(t, "css/geral.css")); // CSS
+        s.createContext("/css/atividades.css", t -> enviarCSS(t, "css/atividades.css")); // CSS
+        s.createContext("/css/listar.css", t -> enviarCSS(t, "css/listar.css")); // CSS
 
         //Rotas de arquivos javascript
-        s.createContext("/script.js", t -> enviar(t, "script.js")); //JS geral
-        s.createContext("/login.js", t -> enviar(t, "login.js")); //JS login
+        s.createContext("/js/script.js", t -> enviar(t, "js/script.js")); //JS geral
+        s.createContext("/js/login.js", t -> enviar(t, "js/login.js")); //JS login
 
         //Rotas de imagem
-        s.createContext("/academyflow-logo.png", t -> enviarImagem(t, "AcademyFlow-logo.png")); // Imagem
-        s.createContext("/academyflow-nome.png", t -> enviarImagem(t, "AcademyFlow-nome (1).png")); // Imagem
-        s.createContext("/escola-primaria.jpg", t -> enviarImagem(t, "criancas-felizes-na-escola-primaria.jpg")); // Imagem
-        s.createContext("/dark-theme.svg", t -> enviarImagem(t, "dark-theme.svg")); // Imagem
-        s.createContext("/git-hub.png", t -> enviarImagem(t, "git-hub.png")); // Imagem
-        s.createContext("/guilherme.png", t -> enviarImagem(t, "guilherme.png")); // Imagem
-        s.createContext("/icon-apagar.svg", t -> enviarImagem(t, "icon-apagar.svg")); // Imagem
-        s.createContext("/icon-feito.svg", t -> enviarImagem(t, "icon-feito.svg")); // Imagem
-        s.createContext("/instagram.png", t -> enviarImagem(t, "instagram.png")); // Imagem
-        s.createContext("/joao.png", t -> enviarImagem(t, "joao.png")); // Imagem
-        s.createContext("/laguna-school.png", t -> enviarImagem(t, "LagunaSchool.png")); // Imagem
-        s.createContext("/light-theme.svg", t -> enviarImagem(t, "light-theme.svg")); // Imagem
-        s.createContext("/logo-laguna.png", t -> enviarImagem(t, "logo.png")); // Imagem
-        s.createContext("/nicolas.png", t -> enviarImagem(t, "nicolas.png")); // Imagem
-        s.createContext("/pietro.png", t -> enviarImagem(t, "pietro.png")); // Imagem
-        s.createContext("/sair.png", t -> enviarImagem(t, "sair.png")); // Imagem
+        s.createContext("/img/academyflow-logo.png", t -> enviarImagem(t, "img/AcademyFlow-logo.png")); // Imagem
+        s.createContext("/academyflow-nome.png", t -> enviarImagem(t, "img/AcademyFlow-nome (1).png")); // Imagem
+        s.createContext("/escola-primaria.jpg", t -> enviarImagem(t, "img/criancas-felizes-na-escola-primaria.jpg")); // Imagem
+        s.createContext("/img/dark-theme.svg", t -> enviarImagem(t, "img/dark-theme.svg")); // Imagem
+        s.createContext("/img/git-hub.png", t -> enviarImagem(t, "img/git-hub.png")); // Imagem
+        s.createContext("/img/guilherme.png", t -> enviarImagem(t, "img/guilherme.png")); // Imagem
+        s.createContext("/img/icon-apagar.svg", t -> enviarImagem(t, "img/icon-apagar.svg")); // Imagem
+        s.createContext("/img/icon-feito.svg", t -> enviarImagem(t, "img/icon-feito.svg")); // Imagem
+        s.createContext("/img/instagram.png", t -> enviarImagem(t, "img/instagram.png")); // Imagem
+        s.createContext("/img/joao.png", t -> enviarImagem(t, "img/joao.png")); // Imagem
+        s.createContext("/laguna-school.png", t -> enviarImagem(t, "img/LagunaSchool.png")); // Imagem
+        s.createContext("/img/light-theme.svg", t -> enviarImagem(t, "img/light-theme.svg")); // Imagem
+        s.createContext("/logo-laguna.png", t -> enviarImagem(t, "img/logo.png")); // Imagem
+        s.createContext("/img/nicolas.png", t -> enviarImagem(t, "img/nicolas.png")); // Imagem
+        s.createContext("/img/pietro.png", t -> enviarImagem(t, "img/pietro.png")); // Imagem
+        s.createContext("/img/sair.png", t -> enviarImagem(t, "img/sair.png")); // Imagem
         s.createContext("/sigma100.png", t -> enviarImagem(t, "sigma100-removebg-previw.png")); // Imagem
-        s.createContext("/estudante.jpg", t -> enviarImagem(t, "estudante.jpg")); // Imagem
-        s.createContext("/White-seta.svg", t -> enviarImagem(t, "White-seta.svg")); // Imagem
+        s.createContext("/img/estudante.jpg", t -> enviarImagem(t, "img/estudante.jpg")); // Imagem
+        s.createContext("/img/White-seta.svg", t -> enviarImagem(t, "img/White-seta.svg")); // Imagem
 
         s.start();
         System.out.println("Servidor Iniciado");
         System.out.println("Rodando em http://localhost:8082/");
     }
 
-    // -------------------- LOGIN --------------------
 
-
-    // -------------------- PRODUTOR --------------------
+    // -------------------- Função de cadastro de atividades --------------------
 
     private static void cadastro(HttpExchange t) throws IOException {
 
         if (!t.getRequestMethod().equalsIgnoreCase("POST")) {
-            enviar(t, "/acesso-professor.html");
+            enviar(t, "/acesso-professor.html"); //envia aquivo do professor
             return;
         }
 
         String c = URLDecoder.decode(ler(t), StandardCharsets.UTF_8);
 
-        String nome = pega(c, "nome");
-        String desc = pega(c, "descricao");
-        String data = pega(c, "data");
+        String nome = pega(c, "nome"); //pega nome escrito
+        String desc = pega(c, "descricao"); //pega descrição da atividade
+        String data = pega(c, "data"); //pega data da atividade
 
         try (PreparedStatement ps = con.prepareStatement(
-                "INSERT INTO dados (nome, descricao, data, curtida) VALUES (?,?,?,?)")) {
+                "INSERT INTO dados (nome, descricao, data, curtida) VALUES (?,?,?,?)")) { //insere dados no banco de dados
 
             ps.setString(1, nome);
             ps.setString(2, desc);
             ps.setString(3, data);
             ps.setString(4, "Não Concluido"); // ainda não curtido
-            ps.executeUpdate();
+            ps.executeUpdate(); //atualiza o banco de dados
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -118,18 +117,20 @@ public class Servidor {
         System.out.println("-------------------------------------");
     }
 
-    // -------------------- CONSUMIDOR (lista todos os cards) --------------------
+    // -------------------- Aluno (lista todos os cards) --------------------
 
     private static void aluno(HttpExchange t) throws IOException {
         StringBuilder html = new StringBuilder();
+
+        //Insere arquivo HTMl do aluno (mesma coisa que HTML padrão soq colocado a partir do JAVA)
 
         html.append("<!DOCTYPE html>");
         html.append("<html><head>");
         html.append("<meta charset=\"UTF-8\">");
         html.append("<title>AcademyFlow | Mural de Atividades</title>");
-        html.append("<link rel=\"stylesheet\" href=\"/atividades.css\">");
-        html.append("<link rel=\"stylesheet\" href=\"/geral.css\">");
-        html.append("<link rel=\"icon\" href=\"/academyflow-logo.png\">");
+        html.append("<link rel=\"stylesheet\" href=\"/css/atividades.css\">");
+        html.append("<link rel=\"stylesheet\" href=\"/css/geral.css\">");
+        html.append("<link rel=\"icon\" href=\"/img/academyflow-logo.png\">");
         html.append("</head><body>");
         html.append("<header>");
         html.append("<div class=\"logo-header\">");
@@ -146,8 +147,8 @@ public class Servidor {
 
         html.append("<div class=\"buttons\">");
         html.append("<button class=\"dark-mode-button\" id=\"toggle-theme\" aria-label=\"Alternar modo escuro\">");
-        html.append("<img class=\"dark-theme-img\" src=\"/light-theme.svg\" alt=\"Ícone Claro\">");
-        html.append("<img class=\"light-theme-img\" src=\"/dark-theme.svg\" alt=\"Ícone Escuro\">");
+        html.append("<img class=\"dark-theme-img\" src=\"/img/light-theme.svg\" alt=\"Ícone Claro\">");
+        html.append("<img class=\"light-theme-img\" src=\"/img/dark-theme.svg\" alt=\"Ícone Escuro\">");
         html.append("</button>");
         html.append("</div>");
         html.append("</div>");
@@ -162,26 +163,28 @@ public class Servidor {
 
         try (Statement st = con.createStatement();
              ResultSet rs = st.executeQuery("SELECT id, nome, descricao, data, curtida FROM dados ORDER BY id DESC")) {
+            //Organiza os arquivos a partir do ID
 
             boolean vazio = true;
 
             while (rs.next()) {
                 vazio = false;
 
+                //Insere o conteudo do Banco de Dados em variaveis
                 int id = rs.getInt("id");
                 String nome = rs.getString("nome");
                 String desc = rs.getString("descricao");
                 String data = rs.getString("data");
                 String curtida = rs.getString("curtida");
 
-                // Classe extra para cor do card
+                // Trocar a cor se concluido ou não
                 String classeExtra = "bloco";
                 if ("Concluido".equals(curtida)) {
                     classeExtra = "card-curtido";
                 } else if ("nao".equals(curtida)) {
                     classeExtra = "bloco";
                 }
-
+                //Insere o conteudo do Banco de dados em blocos no HTML
                 html.append("<div class=\"")
                         .append(classeExtra)
                         .append("\">");
@@ -193,14 +196,14 @@ public class Servidor {
                 html.append("</div>");
                 html.append("<div class=\"botoes\">");
 
-// Botão CONCLUIDO
+                // Botão CONCLUIDO
                 html.append("<form method=\"POST\" action=\"/concluido_aluno\">");
                 html.append("<input type=\"hidden\" name=\"id\" value=\"").append(id).append("\">");
                 html.append("<input type=\"hidden\" name=\"acao\" value=\"Concluido\">");
                 html.append("<button type=\"submit\">Concluído</button>");
                 html.append("</form>");
 
-// Botão NÃO CONCLUIDO
+                // Botão NÃO CONCLUIDO
                 html.append("<form method=\"POST\" action=\"/concluido_aluno\">");
                 html.append("<input type=\"hidden\" name=\"id\" value=\"").append(id).append("\">");
                 html.append("<input type=\"hidden\" name=\"acao\" value=\"Não Concluido\">");
@@ -209,7 +212,7 @@ public class Servidor {
 
 
                 html.append("</div>");
-                html.append("</div>"); // fecha div com classeExtra
+                html.append("</div>");
             }
 
             if (vazio) {
@@ -220,7 +223,7 @@ public class Servidor {
             e.printStackTrace();
             html.append("<p>Erro ao carregar atividades.</p>");
         }
-        html.append("<script src=\"/script.js\"></script>");
+        html.append("<script src=\"/js/script.js\"></script>");
         html.append("</body></html>");
 
         // Enviar HTML gerado
@@ -230,6 +233,9 @@ public class Servidor {
         t.getResponseBody().write(b);
         t.close();
     }
+
+    // -------------------- Professor (lista, adiciona e exclui atividades) --------------------
+
     private static void acesso_professor(HttpExchange t) throws IOException {
         StringBuilder html = new StringBuilder();
 
@@ -237,9 +243,9 @@ public class Servidor {
         html.append("<html><head>");
         html.append("<meta charset=\"UTF-8\">");
         html.append("<title>AcademyFlow | Mural de Atividades</title>");
-        html.append("<link rel=\"stylesheet\" href=\"/atividades.css\">");
-        html.append("<link rel=\"stylesheet\" href=\"/geral.css\">");
-        html.append("<link rel=\"icon\" href=\"/academyflow-logo.png\">");
+        html.append("<link rel=\"stylesheet\" href=\"/css/atividades.css\">");
+        html.append("<link rel=\"stylesheet\" href=\"/css/geral.css\">");
+        html.append("<link rel=\"icon\" href=\"/img/academyflow-logo.png\">");
         html.append("</head><body>");
         html.append("<header>");
         html.append("<div class=\"logo-header\">");
@@ -256,8 +262,8 @@ public class Servidor {
 
         html.append("<div class=\"buttons\">");
         html.append("<button class=\"dark-mode-button\" id=\"toggle-theme\" aria-label=\"Alternar modo escuro\">");
-        html.append("<img class=\"dark-theme-img\" src=\"/light-theme.svg\" alt=\"Ícone Claro\">");
-        html.append("<img class=\"light-theme-img\" src=\"/dark-theme.svg\" alt=\"Ícone Escuro\">");
+        html.append("<img class=\"dark-theme-img\" src=\"/img/light-theme.svg\" alt=\"Ícone Claro\">");
+        html.append("<img class=\"light-theme-img\" src=\"/img/dark-theme.svg\" alt=\"Ícone Escuro\">");
         html.append("</button>");
         html.append("</div>");
         html.append("</div>");
@@ -324,21 +330,21 @@ public class Servidor {
                 html.append("</div>");
                 html.append("<div class=\"botoes\">");
 
-// Botão CONCLUIDO
+                // Botão CONCLUIDO
                 html.append("<form method=\"POST\" action=\"/concluido_professor\">");
                 html.append("<input type=\"hidden\" name=\"id\" value=\"").append(id).append("\">");
                 html.append("<input type=\"hidden\" name=\"acao\" value=\"Concluido\">");
                 html.append("<button type=\"submit\">Concluído</button>");
                 html.append("</form>");
 
-// Botão NÃO CONCLUIDO
+                // Botão NÃO CONCLUIDO
                 html.append("<form method=\"POST\" action=\"/concluido_professor\">");
                 html.append("<input type=\"hidden\" name=\"id\" value=\"").append(id).append("\">");
                 html.append("<input type=\"hidden\" name=\"acao\" value=\"Não Concluido\">");
                 html.append("<button type=\"submit\">Não concluído</button>");
                 html.append("</form>");
 
-// Botão EXCLUIR
+                // Botão EXCLUIR
                 html.append("<div class=\"overlay\"></div>");
                 html.append(("<button class=\"excluir\" onclick=\"mostrarConfirmacao()\">Excluir</button>"));
                 html.append("<div class=\"confirmacao\" id=\"confirmação\">");
@@ -363,7 +369,7 @@ public class Servidor {
             e.printStackTrace();
             html.append("<p>Erro ao carregar atividades.</p>");
         }
-        html.append("<script src=\"/script.js\"></script>");
+        html.append("<script src=\"/js/script.js\"></script>");
         html.append("</body></html>");
 
         // Enviar HTML gerado
@@ -374,24 +380,24 @@ public class Servidor {
         t.close();
     }
 
-    // -------------------- AVALIAR (curtir / não curtir um card específico) --------------------
+    // -------------------- Conclusão (Concluido / Não concluido) --------------------
 
     private static void concluido_aluno(HttpExchange t) throws IOException {
 
         if (!t.getRequestMethod().equalsIgnoreCase("POST")) {
-            redirecionar(t, "/aluno");
+            redirecionar(t, "/aluno"); //Redireciona para apagina do aluno
             return;
         }
 
         String corpo = URLDecoder.decode(ler(t), StandardCharsets.UTF_8);
-        String acao = pega(corpo, "acao"); // "curtir" ou "nao"
+        String acao = pega(corpo, "acao"); // "concluido" ou "nao"
         String idStr = pega(corpo, "id");
 
         try {
             int id = Integer.parseInt(idStr);
 
             try (PreparedStatement ps = con.prepareStatement(
-                    "UPDATE dados SET curtida = ? WHERE id = ?")) {
+                    "UPDATE dados SET curtida = ? WHERE id = ?")) {  //atualiza o banco de dados
                 ps.setString(1, acao);
                 ps.setInt(2, id);
                 ps.executeUpdate();
@@ -403,6 +409,9 @@ public class Servidor {
 
         redirecionar(t, "/aluno");
     }
+
+    // -------------------- Conclusão (Concluido / Não concluido) --------------------
+
     private static void concluido_professor(HttpExchange t) throws IOException {
 
         if (!t.getRequestMethod().equalsIgnoreCase("POST")) {
@@ -431,23 +440,24 @@ public class Servidor {
         redirecionar(t, "/acesso-professor");
     }
 
+    // -------------------- Função de excluir atividades --------------------
 
     private static void excluir(HttpExchange t) throws IOException {
 
         if (!t.getRequestMethod().equalsIgnoreCase("POST")) {
-            redirecionar(t, "/acesso-professor");
+            redirecionar(t, "/acesso-professor"); //ao excluir redireciona para:
             return;
         }
 
         String corpo = URLDecoder.decode(ler(t), StandardCharsets.UTF_8);
-        String idStr = pega(corpo, "id");
+        String idStr = pega(corpo, "id"); //pega o id da atividade a ser excluida
 
         try {
             int id = Integer.parseInt(idStr);
 
             // Usando apenas o ID para realizar a exclusão
             try (PreparedStatement ps = con.prepareStatement(
-                    "DELETE FROM dados WHERE id = ?")) {
+                    "DELETE FROM dados WHERE id = ?")) { //deleta apenas a atividade com o id especifico
                 ps.setInt(1, id);  // Passando apenas o ID para a PreparedStatement
                 ps.executeUpdate();
             }
@@ -502,6 +512,8 @@ public class Servidor {
         }
     }
 
+    // -------------------- Função para ler dados --------------------
+
     private static String ler(HttpExchange t) throws IOException {
         BufferedReader br = new BufferedReader(
                 new InputStreamReader(t.getRequestBody(), StandardCharsets.UTF_8)
@@ -509,6 +521,8 @@ public class Servidor {
         String linha = br.readLine();
         return (linha == null) ? "" : linha;
     }
+
+    // -------------------- Função para enviar arquivos (html e JS) --------------------
 
     private static void enviar(HttpExchange t, String arq) throws IOException {
         File f = new File("src/main/java/" + arq);
@@ -519,6 +533,8 @@ public class Servidor {
         t.close();
     }
 
+    // -------------------- Função para enviar arquivos CSS --------------------
+
     private static void enviarCSS(HttpExchange t, String arq) throws IOException {
         File f = new File("src/main/java/" + arq);
         byte[] b = java.nio.file.Files.readAllBytes(f.toPath());
@@ -527,6 +543,8 @@ public class Servidor {
         t.getResponseBody().write(b);
         t.close();
     }
+
+    // -------------------- Função para redirecionar rotas --------------------
 
     private static void redirecionar(HttpExchange t, String rota) throws IOException {
         t.getResponseHeaders().add("Location", rota);
