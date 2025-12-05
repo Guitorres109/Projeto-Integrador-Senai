@@ -36,17 +36,18 @@ public class Servidor {
         s.createContext("/aluno", Servidor::aluno); // lista atividades para o aluno
         s.createContext("/acesso-professor", Servidor::acesso_professor); // lista atividades para o professor
         s.createContext("/concluido_aluno", Servidor::concluido_aluno);       // Concluido
-        s.createContext("/concluido_professor", Servidor::concluido_professor);       //Não concluido
+        s.createContext("/concluido_professor", Servidor::concluido_professor);       //Não
+        s.createContext("/editar", Servidor::editar);       //editar atividades
         s.createContext("/excluir", Servidor::excluir);       //excluir atividades
         s.createContext("/Atividades", t -> enviar(t, "Atividades.html"));   // Pagina do aluno
-        //s.createContext("/acesso-professor", t -> enviar(t, "acesso-professor.html"));   // Professor
+        //s.createContext("/acesso-professor", t -> enviar(t, "carregando.html"));   // Professor
 
         //Rotas de estilo
         s.createContext("/css/style.css", t -> enviarCSS(t, "css/style.css")); // CSS
         s.createContext("/css/login.css", t -> enviarCSS(t, "css/login.css")); // CSS
         s.createContext("/css/geral.css", t -> enviarCSS(t, "css/geral.css")); // CSS
         s.createContext("/css/atividades.css", t -> enviarCSS(t, "css/atividades.css")); // CSS
-        s.createContext("/css/listar.css", t -> enviarCSS(t, "css/listar.css")); // CSS
+        s.createContext("/css/carregando.css", t -> enviarCSS(t, "css/carregando.css")); // CSS
 
         //Rotas de arquivos javascript
         s.createContext("/js/script.js", t -> enviar(t, "js/script.js")); //JS geral
@@ -84,7 +85,7 @@ public class Servidor {
     private static void cadastro(HttpExchange t) throws IOException {
 
         if (!t.getRequestMethod().equalsIgnoreCase("POST")) {
-            enviar(t, "/acesso-professor.html"); //envia aquivo do professor
+            enviar(t, "/carregando.html"); //envia aquivo do professor
             return;
         }
 
@@ -93,14 +94,13 @@ public class Servidor {
         String nome = pega(c, "nome"); //pega nome escrito
         String desc = pega(c, "descricao"); //pega descrição da atividade
         String data = pega(c, "data"); //pega data da atividade
-
         try (PreparedStatement ps = con.prepareStatement(
                 "INSERT INTO dados (nome, descricao, data, curtida) VALUES (?,?,?,?)")) { //insere dados no banco de dados
 
             ps.setString(1, nome);
             ps.setString(2, desc);
             ps.setString(3, data);
-            ps.setString(4, "Não Concluido"); // ainda não curtido
+            ps.setString(4, "null"); // ainda não curtido
             ps.executeUpdate(); //atualiza o banco de dados
 
         } catch (SQLException e) {
@@ -111,9 +111,9 @@ public class Servidor {
         System.out.println("-------------------------------------");
         System.out.println("Cadastro realizado");
         System.out.println(" ");
-        System.out.println("Atividade: "+nome);
-        System.out.println("Descrição: "+desc);
-        System.out.println("Data:: "+data);
+        System.out.println("Atividade: " + nome);
+        System.out.println("Descrição: " + desc);
+        System.out.println("Data:: " + data);
         System.out.println("-------------------------------------");
     }
 
@@ -127,6 +127,7 @@ public class Servidor {
         html.append("<!DOCTYPE html>");
         html.append("<html><head>");
         html.append("<meta charset=\"UTF-8\">");
+        html.append("<meta http-equiv=\"refresh\" content=\"120\">");
         html.append("<title>AcademyFlow | Mural de Atividades</title>");
         html.append("<link rel=\"stylesheet\" href=\"/css/atividades.css\">");
         html.append("<link rel=\"stylesheet\" href=\"/css/geral.css\">");
@@ -138,7 +139,7 @@ public class Servidor {
         html.append("<img src=\"/academyflow-nome.png\" alt=\"Logo AcademyFlow\">");
         html.append("</a>");
         html.append("</div>");
-
+        html.append("<div></div>");
         html.append("<div class=\"nav\">");
         html.append("<div class=\"container-btn-header\">");
         html.append("<h4>Bem-Vindo Aluno</h4>");
@@ -181,8 +182,8 @@ public class Servidor {
                 String classeExtra = "bloco";
                 if ("Concluido".equals(curtida)) {
                     classeExtra = "card-curtido";
-                } else if ("nao".equals(curtida)) {
-                    classeExtra = "bloco";
+                } else if ("Não Concluido".equals(curtida)) {
+                    classeExtra = "card-nao-curtido";
                 }
                 //Insere o conteudo do Banco de dados em blocos no HTML
                 html.append("<div class=\"")
@@ -190,8 +191,8 @@ public class Servidor {
                         .append("\">");
                 html.append("<div class=\"bloco-content\">");
                 html.append("<h2>").append(nome).append("</h2>");
-                html.append("<p><strong>Data:</strong> ").append(data).append("</p>");
-                html.append("<p><strong>Status:</strong> ").append(curtida).append("</p>");
+                html.append("<p><strong> ").append(data).append("</strong></p>");
+//                html.append("<p><strong>Status:</strong> ").append(curtida).append("</p>");
                 html.append("<p>").append(desc).append("</p>");
                 html.append("</div>");
                 html.append("<div class=\"botoes\">");
@@ -207,7 +208,7 @@ public class Servidor {
                 html.append("<form method=\"POST\" action=\"/concluido_aluno\">");
                 html.append("<input type=\"hidden\" name=\"id\" value=\"").append(id).append("\">");
                 html.append("<input type=\"hidden\" name=\"acao\" value=\"Não Concluido\">");
-                html.append("<button type=\"submit\">Não concluído</button>");
+                html.append("<button type=\"submit\" id=\"nao-concluido\">Não concluído</button>");
                 html.append("</form>");
 
 
@@ -221,9 +222,23 @@ public class Servidor {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            html.append("<p>Erro ao carregar atividades.</p>");
+            html.append("<h1>Erro ao carregar atividades.</h1>");
         }
         html.append("<script src=\"/js/script.js\"></script>");
+        html.append("<script>" +
+                "window.onload = function() {\n" +
+                "    var usuario = localStorage.getItem(\"usuario\"); // pega o valor salvo no localStorage\n" +
+                "    var usuario_existe = localStorage.getItem(\"usuario_existe\") === \"true\";\n" +
+                "\n" +
+                "    if (usuario_existe) {\n" +
+                "        console.log(\"O usuário existe.\");\n" +
+                "        document.getElementById(\"nome-usuario\").innerHTML = usuario + \"!\";\n" +
+                "    } else {\n" +
+                "        console.log(\"O usuário não existe.\");\n" +
+                "        window.location.href = \"/login\";\n" +
+                "        document.getElementById(\"nome-usuario\").innerHTML = \"Nenhum usuário encontrado\";\n" +
+                "    }\n" +
+                "};</script>");
         html.append("</body></html>");
 
         // Enviar HTML gerado
@@ -242,6 +257,7 @@ public class Servidor {
         html.append("<!DOCTYPE html>");
         html.append("<html><head>");
         html.append("<meta charset=\"UTF-8\">");
+        html.append("<meta http-equiv=\"refresh\" content=\"120\">");
         html.append("<title>AcademyFlow | Mural de Atividades</title>");
         html.append("<link rel=\"stylesheet\" href=\"/css/atividades.css\">");
         html.append("<link rel=\"stylesheet\" href=\"/css/geral.css\">");
@@ -253,7 +269,7 @@ public class Servidor {
         html.append("<img src=\"/academyflow-nome.png\" alt=\"Logo AcademyFlow\">");
         html.append("</a>");
         html.append("</div>");
-
+        html.append("<div></div>");
         html.append("<div class=\"nav\">");
         html.append("<div class=\"container-btn-header\">");
         html.append("<h4>Bem-Vindo Professor</h4>");
@@ -281,7 +297,7 @@ public class Servidor {
         html.append("<form method=\"POST\" action=\"/cadastro\">");
         html.append("<div class=\"input\">");
         html.append("<label>Nome:</label><br>");
-        html.append("<input type=\"text\" name=\"nome\" placeholder=\"Insira o nome da atividade\" required><br>");
+        html.append("<input type=\"text\" name=\"nome\" placeholder=\"Insira o nome da atividade\" maxlength=\"30\" required><br>");
         html.append("</div>");
         html.append("<div class=\"input\">");
         html.append("<label>Descrição:</label><br>");
@@ -315,8 +331,8 @@ public class Servidor {
                 String classeExtra = "bloco";
                 if ("Concluido".equals(curtida)) {
                     classeExtra = "card-curtido";
-                } else if ("nao".equals(curtida)) {
-                    classeExtra = "bloco";
+                } else if ("Não Concluido".equals(curtida)) {
+                    classeExtra = "card-nao-curtido";
                 }
 
                 html.append("<div class=\"")
@@ -324,8 +340,8 @@ public class Servidor {
                         .append("\">");
                 html.append("<div class=\"bloco-content\">");
                 html.append("<h2>").append(nome).append("</h2>");
-                html.append("<p><strong>Data:</strong> ").append(data).append("</p>");
-                html.append("<p><strong>Status:</strong> ").append(curtida).append("</p>");
+                html.append("<p><strong> ").append(data).append("</strong></p>");
+                //html.append("<p><strong>Status:</strong> ").append(curtida).append("</p>");*/
                 html.append("<p>").append(desc).append("</p>");
                 html.append("</div>");
                 html.append("<div class=\"botoes\">");
@@ -343,6 +359,28 @@ public class Servidor {
                 html.append("<input type=\"hidden\" name=\"acao\" value=\"Não Concluido\">");
                 html.append("<button type=\"submit\">Não concluído</button>");
                 html.append("</form>");
+
+                html.append("<button class=\"editar-atividades\" id=\"mostrar-bloco2\">Editar</button>");
+                html.append("<div id=\"overlay\"></div>");
+                html.append("<div class=\"bloco-atividade\" id=\"bloco-atividade\">");
+                html.append("<h2>Cadastrar Atividade</h2>");
+                html.append("<form method=\"POST\" action=\"/editar\">");
+                html.append("<div class=\"input\">");
+                html.append("<label>Nome:</label><br>");
+                html.append("<input type=\"text\" name=\"nome\" placeholder=\"Insira o nome da atividade\" maxlength=\"30\" required><br>");
+                html.append("</div>");
+                html.append("<div class=\"input\">");
+                html.append("<label>Descrição:</label><br>");
+                html.append("<input type=\"text\" name=\"descricao\" maxlength=\"50\" placeholder=\"Insira uma breve descrição da atividade\" required><br>");
+                html.append("</div>");
+                html.append("<div class=\"input\">");
+                html.append("<label>Data:</label><br>");
+                html.append("<input type=\"date\" name=\"data\" required><br>");
+                html.append("</div>");
+                html.append("<button type=\"submit\">Confirmar</button>");
+                html.append("</form>");
+                html.append("<button id=\"voltar-bloco2\">Voltar</button>");
+                html.append("</div>");
 
                 // Botão EXCLUIR
                 html.append("<div class=\"overlay\"></div>");
@@ -370,6 +408,20 @@ public class Servidor {
             html.append("<p>Erro ao carregar atividades.</p>");
         }
         html.append("<script src=\"/js/script.js\"></script>");
+        html.append("<script>" +
+                "window.onload = function() {\n" +
+                "    var usuario = localStorage.getItem(\"usuario\"); // pega o valor salvo no localStorage\n" +
+                "    var usuario_existe = localStorage.getItem(\"usuario_existe\") === \"true\";\n" +
+                "\n" +
+                "    if (usuario_existe) {\n" +
+                "        console.log(\"O usuário existe.\");\n" +
+                "        document.getElementById(\"nome-usuario\").innerHTML = usuario + \"!\";\n" +
+                "    } else {\n" +
+                "        console.log(\"O usuário não existe.\");\n" +
+                "        window.location.href = \"/login\";\n" +
+                "        document.getElementById(\"nome-usuario\").innerHTML = \"Nenhum usuário encontrado\";\n" +
+                "    }\n" +
+                "};</script>");
         html.append("</body></html>");
 
         // Enviar HTML gerado
@@ -440,6 +492,86 @@ public class Servidor {
         redirecionar(t, "/acesso-professor");
     }
 
+    private static void editar(HttpExchange t) throws IOException {
+        if (!t.getRequestMethod().equalsIgnoreCase("POST")) {
+            redirecionar(t, "/acesso-professor");
+            return;
+        }
+
+        String corpo = URLDecoder.decode(ler(t), StandardCharsets.UTF_8);
+        String acao = pega(corpo, "acao"); // Ação a ser realizada (editar)
+        String idStr = pega(corpo, "id");
+        String nome = pega(corpo, "nome"); // Novo nome
+        String descricao = pega(corpo, "descricao"); // Nova descrição
+        String dataStr = pega(corpo, "data"); // Nova data
+
+        try {
+            int id = Integer.parseInt(idStr);
+
+            // Verifica quais campos foram fornecidos e monta a consulta SQL dinamicamente
+            StringBuilder sql = new StringBuilder("UPDATE dados SET ");
+            boolean setValues = false;
+
+            // Adiciona os campos modificados à consulta
+            if (nome != null && !nome.isEmpty()) {
+                sql.append("nome = ?, ");
+                setValues = true;
+            }
+            if (descricao != null && !descricao.isEmpty()) {
+                sql.append("descricao = ?, ");
+                setValues = true;
+            }
+            if (dataStr != null && !dataStr.isEmpty()) {
+                // Converte a data de String para o formato adequado (exemplo: 'yyyy-MM-dd')
+                sql.append("data = ?, ");
+                setValues = true;
+            }
+
+            // Se ao menos um campo foi fornecido, ajusta a SQL
+            if (setValues) {
+                // Remove a última vírgula e espaço
+                sql.setLength(sql.length() - 2);
+                sql.append(" WHERE id = ?");
+            } else {
+                // Caso nenhum campo tenha sido fornecido, redireciona para uma página de erro
+                redirecionar(t, "/erro-edicao");
+                return;
+            }
+
+            // Prepara a consulta SQL
+            try (PreparedStatement ps = con.prepareStatement(sql.toString())) {
+                int paramIndex = 1;
+
+                // Define os valores dos parâmetros na consulta
+                if (nome != null && !nome.isEmpty()) {
+                    ps.setString(paramIndex++, nome);
+                }
+                if (descricao != null && !descricao.isEmpty()) {
+                    ps.setString(paramIndex++, descricao);
+                }
+                if (dataStr != null && !dataStr.isEmpty()) {
+                    // Converte a data de String para java.sql.Date (considerando formato 'yyyy-MM-dd')
+                    java.sql.Date data = java.sql.Date.valueOf(dataStr);
+                    ps.setDate(paramIndex++, data);
+                }
+
+                // Define o ID para a cláusula WHERE
+                ps.setInt(paramIndex, id);
+
+                // Executa a atualização
+                ps.executeUpdate();
+            }
+
+            // Redireciona para a página de sucesso
+            redirecionar(t, "/acesso-professor");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Caso haja um erro, redireciona para a página de erro
+            redirecionar(t, "/erro-edicao");
+        }
+    }
+
     // -------------------- Função de excluir atividades --------------------
 
     private static void excluir(HttpExchange t) throws IOException {
@@ -465,7 +597,7 @@ public class Servidor {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Atividade excluida, ID: "+idStr);
+        System.out.println("Atividade excluida, ID: " + idStr);
 
         redirecionar(t, "/acesso-professor");
     }

@@ -1,19 +1,46 @@
-var usuarios = ["Guilherme Torres", "Nicolas Tordino", "João Pedro", "Pietro Pardim"];
+var usuarios = [
+  "Guilherme Torres", "Nicolas Tordino", "João Pedro", "Pietro Pardim", 
+  "Lucas Silva", "Maria Oliveira", "Ana Costa", "Carlos Souza", 
+  "Beatriz Lima", "Eduardo Pereira", "Fernanda Martins", 
+  "Juliana Alves", "Rafael Gomes", "Tiago Santos", "Larissa Silva"
+];
 
 // Mapear senhas para cada usuário
 var senhas = {
   "Guilherme Torres": "12345678",
   "Nicolas Tordino": "neymarjunior",
   "João Pedro": "horadopaupreto",
-  "Pietro Pardim": "naofechocomx9"
+  "Pietro Pardim": "naofechocomx9",
+  "Lucas Silva": "lucas1234",
+  "Maria Oliveira": "maria2021",
+  "Ana Costa": "anacosta2023",
+  "Carlos Souza": "carlos2023",
+  "Beatriz Lima": "beatriz123",
+  "Eduardo Pereira": "eduardo789",
+  "Fernanda Martins": "fernanda2020",
+  "Juliana Alves": "juliana123",
+  "Rafael Gomes": "rafael2021",
+  "Tiago Santos": "tiago2024",
+  "Larissa Silva": "larissa123"
 };
 
 // Mapear o tipo de usuário para cada nome
 var tipos_usuario = {
-  "Guilherme Torres": "aluno",
+  "Guilherme Torres": "professor",
   "Nicolas Tordino": "professor",
   "João Pedro": "professor",
-  "Pietro Pardim": "professor"
+  "Pietro Pardim": "professor",
+  "Lucas Silva": "aluno",
+  "Maria Oliveira": "aluno",
+  "Ana Costa": "aluno",
+  "Carlos Souza": "aluno",
+  "Beatriz Lima": "aluno",
+  "Eduardo Pereira": "aluno",
+  "Fernanda Martins": "aluno",
+  "Juliana Alves": "aluno",
+  "Rafael Gomes": "aluno",
+  "Tiago Santos": "aluno",
+  "Larissa Silva": "aluno"
 };
 
 var input_usuario = document.getElementById('usuario'); // O campo para o nome do usuário

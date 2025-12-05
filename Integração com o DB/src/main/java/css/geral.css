@@ -20,11 +20,12 @@
     --Shadow:#F5F7FA;
     --Link: blue;
     --Blacklabel: black;
-    --Checked:rgb(44, 253, 44);
+    --Checked:#2cfd2c;
     /* Primary */
     --Primary:#4DAAD6;
     --Secundary:#21365E;
     --Info:#2194f3;
+    --D_grey2:#4D4D4D;
     /* Color Shade */
     --Shade1:#43A046;
     --Shade2:#388E3B;
@@ -232,6 +233,25 @@ body:not(.dark-mode) .light-theme-img {
   }
   100% {
     width: 100%; /* Texto vai aparecendo aos poucos */
+  }
+}
+
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 6px solid var(--Silver); /* cor de fundo do arco */
+  border-top: 6px solid var(--Primary); /* cor da parte que gira */
+  border-radius: 50%; /* deixa redondo */
+  animation: spin 1s linear infinite;
+  margin: 40px auto; /* centraliza */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 

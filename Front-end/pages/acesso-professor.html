@@ -98,9 +98,11 @@
                 document.getElementById("nome-usuario").innerHTML = usuario+"!";
             } else {
                 console.log("O usuário não existe.");
+                window.location.href = "/login";
                 document.getElementById("nome-usuario").innerHTML = "Nenhum usuário encontrado";
             }
         };
+        
     </script>
 </body>
 </html>
