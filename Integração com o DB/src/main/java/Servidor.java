@@ -359,7 +359,7 @@ public class Servidor {
                 html.append("<input type=\"hidden\" name=\"acao\" value=\"Não Concluido\">");
                 html.append("<button type=\"submit\">Não concluído</button>");
                 html.append("</form>");
-                
+
                 html.append("</div>");
 
                 // Botão EXCLUIR
@@ -369,18 +369,15 @@ public class Servidor {
                 html.append("<div class=\"conteudo-expandido\">");
 
                 html.append("<form method=\"post\" action=\"/editar\">");
-
-// HEADER
                 html.append("<div class=\"editar-header\">");
-
                 html.append("<div>");
                 html.append("<label></label>");
-                html.append("<input type=\"text\" name=\"Nome\" placeholder=\"Editar título\" required>");
+                html.append("<input type=\"text\" name=\"nome\" placeholder=\"Editar título\" required>");
                 html.append("</div>");
 
                 html.append("<div>");
                 html.append("<label></label>");
-                html.append("<input type=\"date\" name=\"Data\" required>");
+                html.append("<input type=\"date\" name=\"data\" required>");
                 html.append("</div>");
 
                 html.append("</div>"); // editar-header
@@ -388,7 +385,7 @@ public class Servidor {
 // DESCRIÇÃO
                 html.append("<div class=\"editar-descricao\">");
                 html.append("<label></label>");
-                html.append("<input type=\"text\" name=\"Descrição\" placeholder=\"Editar Descrição\" required>");
+                html.append("<input type=\"text\" name=\"desc\" placeholder=\"Editar Descrição\" required>");
                 html.append("</div>");
 
 // BOTÃO

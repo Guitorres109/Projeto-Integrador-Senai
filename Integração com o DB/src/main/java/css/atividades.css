@@ -506,6 +506,45 @@ button.cancelar:active {
     overflow: hidden;
     transition: max-height 0.4s ease;
     opacity: 0;
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+}
+.editar-header{
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.editar-header div{
+  width: 45%;
+  height: 100%;
+  margin-top: 30px;
+}
+.editar-header input{
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--Primary);
+  padding: 10px;
+  background-color: transparent;
+}
+.editar-descricao{
+  width: 100%;
+  height: 50%;
+}
+.editar-descricao input{
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--Primary);
+  background-color: transparent;
+  padding: 10px;
+}
+
+.conteudo-expandido button{
+  margin-top: 20px;
 }
 
 /* Quando marcado → aparece */
