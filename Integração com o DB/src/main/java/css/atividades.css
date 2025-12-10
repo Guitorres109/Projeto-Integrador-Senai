@@ -495,3 +495,34 @@ button.cancelar:active {
   margin-left: 20px;
   max-width: 560px;
 }
+/* Esconde checkbox */
+.toggle-expansao {
+    display: none;
+}
+
+/* Conteúdo oculto inicialmente */
+.conteudo-expandido {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    opacity: 0;
+}
+
+/* Quando marcado → aparece */
+.toggle-expansao:checked ~ .conteudo-expandido {
+    max-height: 500px; /* pode ajustar */
+    opacity: 1;
+}
+
+/* Botão de ver mais */
+.botao-expansao {
+    display: inline-block;
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.botao-expansao:hover {
+    text-decoration: underline;
+}

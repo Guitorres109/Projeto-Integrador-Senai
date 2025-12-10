@@ -359,43 +359,48 @@ public class Servidor {
                 html.append("<input type=\"hidden\" name=\"acao\" value=\"Não Concluido\">");
                 html.append("<button type=\"submit\">Não concluído</button>");
                 html.append("</form>");
-
-                html.append("<button class=\"editar-atividades\" id=\"mostrar-bloco2\">Editar</button>");
-                html.append("<div id=\"overlay\"></div>");
-                html.append("<div class=\"bloco-atividade\" id=\"bloco-atividade\">");
-                html.append("<h2>Cadastrar Atividade</h2>");
-                html.append("<form method=\"POST\" action=\"/editar\">");
-                html.append("<div class=\"input\">");
-                html.append("<label>Nome:</label><br>");
-                html.append("<input type=\"text\" name=\"nome\" placeholder=\"Insira o nome da atividade\" maxlength=\"30\" required><br>");
-                html.append("</div>");
-                html.append("<div class=\"input\">");
-                html.append("<label>Descrição:</label><br>");
-                html.append("<input type=\"text\" name=\"descricao\" maxlength=\"50\" placeholder=\"Insira uma breve descrição da atividade\" required><br>");
-                html.append("</div>");
-                html.append("<div class=\"input\">");
-                html.append("<label>Data:</label><br>");
-                html.append("<input type=\"date\" name=\"data\" required><br>");
-                html.append("</div>");
-                html.append("<button type=\"submit\">Confirmar</button>");
-                html.append("</form>");
-                html.append("<button id=\"voltar-bloco2\">Voltar</button>");
+                
                 html.append("</div>");
 
                 // Botão EXCLUIR
-                html.append("<div class=\"overlay\"></div>");
-                html.append(("<button class=\"excluir\" onclick=\"mostrarConfirmacao()\">Excluir</button>"));
-                html.append("<div class=\"confirmacao\" id=\"confirmação\">");
-                html.append("<h2>Você tem certeza que deseja excluir esta atividade?");
+                html.append("<input type=\"checkbox\" id=\"toggle-expansao-").append(id).append("\" class=\"toggle-expansao\">");
+                html.append("<label for=\"toggle-expansao-").append(id).append("\" class=\"botao-expansao\">Editar</label>");
+
+                html.append("<div class=\"conteudo-expandido\">");
+
+                html.append("<form method=\"post\" action=\"/editar\">");
+
+// HEADER
+                html.append("<div class=\"editar-header\">");
+
+                html.append("<div>");
+                html.append("<label></label>");
+                html.append("<input type=\"text\" name=\"Nome\" placeholder=\"Editar título\" required>");
+                html.append("</div>");
+
+                html.append("<div>");
+                html.append("<label></label>");
+                html.append("<input type=\"date\" name=\"Data\" required>");
+                html.append("</div>");
+
+                html.append("</div>"); // editar-header
+
+// DESCRIÇÃO
+                html.append("<div class=\"editar-descricao\">");
+                html.append("<label></label>");
+                html.append("<input type=\"text\" name=\"Descrição\" placeholder=\"Editar Descrição\" required>");
+                html.append("</div>");
+
+// BOTÃO
+                html.append("<button type=\"submit\">Confirmar</button>");
                 html.append("<form method=\"POST\" action=\"/excluir\">");
                 html.append("<input type=\"hidden\" name=\"id\" value=\"").append(id).append("\">");
                 html.append("<input type=\"hidden\" name=\"acao\" value=\"excluir\">");
                 html.append("<button class=\"excluir\" type=\"submit\">Excluir</button>");
                 html.append("</form>");
-                html.append(("<button onclick=\"fecharConfirmacao()\">Não Excluir</button>"));
-                html.append("</div>");
 
-                html.append("</div>");
+                html.append("</form>");
+                html.append("</div>"); // conteudo-expandido
                 html.append("</div>"); // fecha div com classeExtra
             }
 
@@ -501,7 +506,7 @@ public class Servidor {
         String corpo = URLDecoder.decode(ler(t), StandardCharsets.UTF_8);
         String idStr = pega(corpo, "id");
         String nome = pega(corpo, "nome"); // Novo nome
-        String desc = pega(corpo, "descricao"); // Nova descrição
+        String desc = pega(corpo, "desc"); // Nova descrição
         String dataStr = pega(corpo, "data"); // Nova data
 
         try {
@@ -510,9 +515,9 @@ public class Servidor {
             try (PreparedStatement ps = con.prepareStatement(
                     "UPDATE dados SET nome = ?, descricao = ?, data = ? WHERE id = ?")) {
                 ps.setString(1, nome);
-                ps.setInt(2, desc);
+                ps.setString(2, desc);
                 ps.setString(3, dataStr);
-                ps.setInt(4, idStr);
+                ps.setInt(4, id);
                 ps.executeUpdate();
             }
 
