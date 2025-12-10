@@ -19,6 +19,10 @@
     --Whitelabel:#ffffff;
     --Shadow:#F5F7FA;
     --Link: blue;
+    --editar:#007bff;
+    --editarlabel:#007bff;
+    --placeholder:#000000be;
+    --placeholderlabel:#000000be;
     --Blacklabel: black;
     --Checked:#2cfd2c;
     /* Primary */
@@ -62,6 +66,8 @@ body.dark-mode {
     --D_grey:#ffffff;
     --Shadow:#575757;
     --Link:rgb(0, 183, 255);
+    --editar: #ffffff;
+    --placeholder:#ffffffbe;
 }
 header{
     display: flex;

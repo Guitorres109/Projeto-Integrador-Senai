@@ -290,6 +290,36 @@ form button:hover {
   border-left: 6px solid #2ecc71;
   background: #e9f9f1;
 }
+.card-curtido .botao-expansao{
+  color: var(--editarlabel);
+}
+.card-nao-curtido .botao-expansao{
+  color: var(--editarlabel);
+}
+.card-curtido .editar-header input{
+  color: var(--Blacklabel);
+}
+.card-nao-curtido .editar-header input{
+  color: var(--Blacklabel);
+}
+.card-curtido .editar-descricao input{
+  color: var(--Blacklabel);
+}
+.card-nao-curtido .editar-descricao input{
+  color: var(--Blacklabel);
+}
+.card-curtido .editar-header input::placeholder{
+  color: var(--placeholderlabel);
+}
+.card-nao-curtido .editar-header input::placeholder{
+  color: var(--placeholderlabel);
+}
+.card-curtido .editar-descricao input::placeholder{
+  color: var(--placeholderlabel);
+}
+.card-nao-curtido .editar-descricao input::placeholder{
+  color: var(--placeholderlabel);
+}
 .card-nao-curtido {
   border-left: 6px solid #cc2e2e;
   background: #f9e9e9;
@@ -343,7 +373,7 @@ form button:hover {
 
 /* Estilo para a área de botões */
 .botoes {
-  margin-top: 20px;
+  margin-bottom: 10px;
   text-align: center;
   display: flex;
   align-items: center;
@@ -510,6 +540,12 @@ button.cancelar:active {
     height: 200px;
     padding: 10px;
 }
+.conteudo-expandido input::placeholder{
+  color: var(--placeholder);
+}
+.conteudo-expandido input{
+  color: var(--Black);
+}
 .editar-header{
   width: 100%;
   height: 80px;
@@ -559,9 +595,19 @@ button.cancelar:active {
     margin-top: 10px;
     cursor: pointer;
     font-weight: bold;
-    color: #007bff;
+    color: var(--editar);
 }
 
 .botao-expansao:hover {
     text-decoration: underline;
+}
+.id-bloco{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 5px;
+}
+.id-bloco p{
+  font-size: 5px;
 }

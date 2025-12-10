@@ -338,6 +338,7 @@ public class Servidor {
                 html.append("<div class=\"")
                         .append(classeExtra)
                         .append("\">");
+                html.append("<div id=\"id-bloco\" style=\"display:none;\">").append(id).append("\n</div>");
                 html.append("<div class=\"bloco-content\">");
                 html.append("<h2>").append(nome).append("</h2>");
                 html.append("<p><strong> ").append(data).append("</strong></p>");
@@ -360,6 +361,12 @@ public class Servidor {
                 html.append("<button type=\"submit\">Não concluído</button>");
                 html.append("</form>");
 
+                html.append("<form method=\"POST\" action=\"/excluir\">");
+                html.append("<input type=\"hidden\" name=\"id\" value=\"").append(id).append("\">");
+                html.append("<input type=\"hidden\" name=\"acao\" value=\"excluir\">");
+                html.append("<button class=\"excluir\" type=\"submit\">Excluir</button>");
+                html.append("</form>");
+
                 html.append("</div>");
 
                 // Botão EXCLUIR
@@ -369,34 +376,21 @@ public class Servidor {
                 html.append("<div class=\"conteudo-expandido\">");
 
                 html.append("<form method=\"post\" action=\"/editar\">");
+                html.append("<input type=\"hidden\" name=\"id\" value=\"").append(id).append("\">");
                 html.append("<div class=\"editar-header\">");
                 html.append("<div>");
-                html.append("<label></label>");
                 html.append("<input type=\"text\" name=\"nome\" placeholder=\"Editar título\" required>");
                 html.append("</div>");
-
                 html.append("<div>");
-                html.append("<label></label>");
                 html.append("<input type=\"date\" name=\"data\" required>");
                 html.append("</div>");
-
-                html.append("</div>"); // editar-header
-
-// DESCRIÇÃO
+                html.append("</div>");
                 html.append("<div class=\"editar-descricao\">");
-                html.append("<label></label>");
                 html.append("<input type=\"text\" name=\"desc\" placeholder=\"Editar Descrição\" required>");
                 html.append("</div>");
-
-// BOTÃO
                 html.append("<button type=\"submit\">Confirmar</button>");
-                html.append("<form method=\"POST\" action=\"/excluir\">");
-                html.append("<input type=\"hidden\" name=\"id\" value=\"").append(id).append("\">");
-                html.append("<input type=\"hidden\" name=\"acao\" value=\"excluir\">");
-                html.append("<button class=\"excluir\" type=\"submit\">Excluir</button>");
                 html.append("</form>");
 
-                html.append("</form>");
                 html.append("</div>"); // conteudo-expandido
                 html.append("</div>"); // fecha div com classeExtra
             }
@@ -497,6 +491,7 @@ public class Servidor {
     private static void editar(HttpExchange t) throws IOException {
         if (!t.getRequestMethod().equalsIgnoreCase("POST")) {
             redirecionar(t, "/acesso-professor");
+            System.out.println("Método errado");
             return;
         }
 
@@ -505,6 +500,7 @@ public class Servidor {
         String nome = pega(corpo, "nome"); // Novo nome
         String desc = pega(corpo, "desc"); // Nova descrição
         String dataStr = pega(corpo, "data"); // Nova data
+        System.out.println("ID recebido: '" + idStr + "'");
 
         try {
             int id = Integer.parseInt(idStr);
@@ -516,10 +512,12 @@ public class Servidor {
                 ps.setString(3, dataStr);
                 ps.setInt(4, id);
                 ps.executeUpdate();
+                System.out.println("Dados editados com sucesso");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Erro ao editar os dados");
         }
 
         redirecionar(t, "/acesso-professor");
