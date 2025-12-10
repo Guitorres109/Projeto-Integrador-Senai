@@ -499,77 +499,28 @@ public class Servidor {
         }
 
         String corpo = URLDecoder.decode(ler(t), StandardCharsets.UTF_8);
-        String acao = pega(corpo, "acao"); // Ação a ser realizada (editar)
         String idStr = pega(corpo, "id");
         String nome = pega(corpo, "nome"); // Novo nome
-        String descricao = pega(corpo, "descricao"); // Nova descrição
+        String desc = pega(corpo, "descricao"); // Nova descrição
         String dataStr = pega(corpo, "data"); // Nova data
 
         try {
             int id = Integer.parseInt(idStr);
 
-            // Verifica quais campos foram fornecidos e monta a consulta SQL dinamicamente
-            StringBuilder sql = new StringBuilder("UPDATE dados SET ");
-            boolean setValues = false;
-
-            // Adiciona os campos modificados à consulta
-            if (nome != null && !nome.isEmpty()) {
-                sql.append("nome = ?, ");
-                setValues = true;
-            }
-            if (descricao != null && !descricao.isEmpty()) {
-                sql.append("descricao = ?, ");
-                setValues = true;
-            }
-            if (dataStr != null && !dataStr.isEmpty()) {
-                // Converte a data de String para o formato adequado (exemplo: 'yyyy-MM-dd')
-                sql.append("data = ?, ");
-                setValues = true;
-            }
-
-            // Se ao menos um campo foi fornecido, ajusta a SQL
-            if (setValues) {
-                // Remove a última vírgula e espaço
-                sql.setLength(sql.length() - 2);
-                sql.append(" WHERE id = ?");
-            } else {
-                // Caso nenhum campo tenha sido fornecido, redireciona para uma página de erro
-                redirecionar(t, "/erro-edicao");
-                return;
-            }
-
-            // Prepara a consulta SQL
-            try (PreparedStatement ps = con.prepareStatement(sql.toString())) {
-                int paramIndex = 1;
-
-                // Define os valores dos parâmetros na consulta
-                if (nome != null && !nome.isEmpty()) {
-                    ps.setString(paramIndex++, nome);
-                }
-                if (descricao != null && !descricao.isEmpty()) {
-                    ps.setString(paramIndex++, descricao);
-                }
-                if (dataStr != null && !dataStr.isEmpty()) {
-                    // Converte a data de String para java.sql.Date (considerando formato 'yyyy-MM-dd')
-                    java.sql.Date data = java.sql.Date.valueOf(dataStr);
-                    ps.setDate(paramIndex++, data);
-                }
-
-                // Define o ID para a cláusula WHERE
-                ps.setInt(paramIndex, id);
-
-                // Executa a atualização
+            try (PreparedStatement ps = con.prepareStatement(
+                    "UPDATE dados SET nome = ?, descricao = ?, data = ? WHERE id = ?")) {
+                ps.setString(1, nome);
+                ps.setInt(2, desc);
+                ps.setString(3, dataStr);
+                ps.setInt(4, idStr);
                 ps.executeUpdate();
             }
 
-            // Redireciona para a página de sucesso
-            redirecionar(t, "/acesso-professor");
-
         } catch (Exception e) {
             e.printStackTrace();
-            // Caso haja um erro, redireciona para a página de erro
-            redirecionar(t, "/erro-edicao");
         }
+
+        redirecionar(t, "/acesso-professor");
     }
 
     // -------------------- Função de excluir atividades --------------------
