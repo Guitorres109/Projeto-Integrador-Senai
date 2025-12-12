@@ -7,11 +7,14 @@ import java.net.URLDecoder;                             // Para decodificar par�
 import java.nio.charset.StandardCharsets;               // Para trabalhar com codificação de caracteres
 import java.sql.*;                                      // Para manipulação do banco de dados
 
+
 public class Servidor {
 
     private static Connection con;
     public static String usuarioDigitado = "";
-    public static String erro;
+    public static String erro = "";
+    public static int edicao = 0;
+
     public static void main(String[] args) throws Exception {
 
         // Conectar ao SQLite (arquivo conteudo.db na pasta do projeto)
@@ -23,16 +26,17 @@ public class Servidor {
                 "nome TEXT," +
                 "descricao TEXT," +
                 "data TEXT," +
-                "curtida TEXT" +
+                "usuario," +
+                "curtida TEXT," +
+                "edicao TEXT" +
                 ")";
         con.createStatement().execute(sql);
-
         // Criar servidor HTTP
         HttpServer s = HttpServer.create(new InetSocketAddress(8082), 0);
 
         // Rotas básicas
         s.createContext("/", t -> enviar(t, "index.html"));
-        s.createContext("/login", t -> enviar(t, "login.html")); // mostra login
+        s.createContext("/login", Servidor::login); // mostra login
         s.createContext("/cadastro", Servidor::cadastro);     // cadastro de atividades
         s.createContext("/aluno", Servidor::aluno); // lista atividades para o aluno
         s.createContext("/acesso-professor", Servidor::acesso_professor); // lista atividades para o professor
@@ -41,7 +45,7 @@ public class Servidor {
         s.createContext("/editar", Servidor::editar);       //editar atividades
         s.createContext("/excluir", Servidor::excluir);       //excluir atividades
         s.createContext("/Atividades", t -> enviar(t, "Atividades.html"));   // Pagina do aluno
-        s.createContext("/verificar", Servidor::verificar);
+        s.createContext("/autenticacao", Servidor::autenticacao);
 
         //Rotas de estilo
         s.createContext("/css/style.css", t -> enviarCSS(t, "css/style.css")); // CSS
@@ -82,9 +86,12 @@ public class Servidor {
 
     // -------------------- Pagina de login em HTML dinamico  --------------------
 
-    public static void login (HttpExchange t) throws  IOException {
+    private static void login (HttpExchange t) throws  IOException {
+        String classe = "sem-erro";
+        if (erro != ""){
+            classe = "erro";
+        }
         StringBuilder html = new StringBuilder();
-        System.out.println(erro);
 
         html.append("<!DOCTYPE html>");
         html.append("<html lang=\"pt-BR\">");
@@ -117,7 +124,7 @@ public class Servidor {
         html.append("</div>");
         html.append("</div>");
         html.append("<section class=\"container reveal\">");
-        html.append("<form method=\"post\" action=\"/verificar\">");
+        html.append("<form method=\"post\" action=\"/autenticacao\">");
         html.append("<div class=\"bloco\">");
         html.append("<label for=\"usuario\">Usuário</label>");
         html.append("<input type=\"text\" placeholder=\"Nome Completo\" id=\"usuario\" name=\"usuario\" required>");
@@ -141,7 +148,9 @@ public class Servidor {
         html.append("<button type=\"submit\" id=\"enviar\">Enviar</button>");
         html.append("</div>");
         html.append("</form>");
-        html.append("<p>").append(erro).append("</p>");
+        html.append("<div class=\"").append(classe).append("\">");
+        html.append("<p>").append(erro).append("</p>");  // Inserção dinâmica do erro
+        html.append("</div>");
         html.append("</section>");
         html.append("<section class=\"infos reveal\">");
         html.append("<div class=\"linha reveal\">");
@@ -163,11 +172,17 @@ public class Servidor {
         html.append("<script src=\"/js/script.js\"></script>");
         html.append("</body>");
         html.append("</html>");
+
+        byte[] b = html.toString().getBytes(StandardCharsets.UTF_8);
+        t.getResponseHeaders().add("Content-Type", "text/html; charset=UTF-8");
+        t.sendResponseHeaders(200, b.length);
+        t.getResponseBody().write(b);
+        t.close();
     }
 
     // -------------------- Função de verificação de login  --------------------
 
-    public static void verificar (HttpExchange t) throws IOException {
+    public static void autenticacao(HttpExchange t) throws IOException {
 
         if (!t.getRequestMethod().equalsIgnoreCase("POST")) {
             enviar(t, "/login"); //envia aquivo do professor
@@ -232,21 +247,21 @@ public class Servidor {
 
         if (indexUsuario == -1) {
             System.out.println("Usuario não encontrado");
-            erro = "Usuario não encontrado";
+            erro = "Usuario não encontrado, verifique o login ou a senha!";
             redirecionar(t, "/login");
         }
 
         // 2. Verificar senha na mesma posição do usuário
         if (!senhas[indexUsuario].equals(senhaDigitada)) {
             System.out.println("senha incorreta");
-            erro = "Senha incorreta";
+            erro = "A senha está incorreta!";
             redirecionar(t, "/login");
         }
 
         // 3. Verificar tipo (professor/aluno)
         if (!tipos[indexUsuario].equals(tipoDigitado)) {
-            System.out.println( "Tipo de usuário incorreto!");
-            erro = "Tipo de usuario incorreto!";
+            System.out.println( "Perfil de usuário incorreto!");
+            erro = "Perfil e usuario não correspondem!";
             redirecionar(t, "/login");
         }
 
@@ -254,8 +269,11 @@ public class Servidor {
         if (usuarios[indexUsuario].equals(usuarioDigitado) && senhas[indexUsuario].equals(senhaDigitada) && tipos[indexUsuario].equals(tipoDigitado)) {
             if (tipoDigitado.equals("professor")){
                 redirecionar(t,"/acesso-professor");
-                System.out.println("Login realizado");
+                System.out.println("---------------------------");
+                System.out.println("Login realizado:");
                 System.out.println("Professor(a) "+usuarioDigitado);
+                System.out.println("---------------------------");
+                System.out.println(" ");
             }
             if (tipoDigitado.equals("aluno")){
                 redirecionar(t, "/aluno");
@@ -279,13 +297,16 @@ public class Servidor {
         String nome = pega(c, "nome"); //pega nome escrito
         String desc = pega(c, "descricao"); //pega descrição da atividade
         String data = pega(c, "data"); //pega data da atividade
+        String usuario = usuarioDigitado;
         try (PreparedStatement ps = con.prepareStatement(
-                "INSERT INTO dados (nome, descricao, data, curtida) VALUES (?,?,?,?)")) { //insere dados no banco de dados
+                "INSERT INTO dados (nome, descricao, data, usuario, curtida, edicao) VALUES (?,?,?,?,?,?)")) { //insere dados no banco de dados
 
             ps.setString(1, nome);
             ps.setString(2, desc);
             ps.setString(3, data);
-            ps.setString(4, "null"); // ainda não curtido
+            ps.setString(4, usuario);
+            ps.setString(5, "null"); // ainda não curtido
+            ps.setString(6, "null"); //ainda não editado
             ps.executeUpdate(); //atualiza o banco de dados
 
         } catch (SQLException e) {
@@ -296,6 +317,7 @@ public class Servidor {
         System.out.println("-------------------------------------");
         System.out.println("Cadastro realizado");
         System.out.println(" ");
+        System.out.println("Cadastrado por "+ usuarioDigitado);
         System.out.println("Atividade: " + nome);
         System.out.println("Descrição: " + desc);
         System.out.println("Data: " + data);
@@ -361,6 +383,7 @@ public class Servidor {
                 String nome = rs.getString("nome");
                 String desc = rs.getString("descricao");
                 String data = rs.getString("data");
+                String usuario = rs.getString("usuario");
                 String curtida = rs.getString("curtida");
 
                 // Trocar a cor se concluido ou não
@@ -377,7 +400,7 @@ public class Servidor {
                 html.append("<div class=\"bloco-content\">");
                 html.append("<h2>").append(nome).append("</h2>");
                 html.append("<p><strong> ").append(data).append("</strong></p>");
-//                html.append("<p><strong>Status:</strong> ").append(curtida).append("</p>");
+                html.append("<p><strong>Adicionado por:</strong> ").append(usuario).append("</p>");
                 html.append("<p>").append(desc).append("</p>");
                 html.append("</div>");
                 html.append("<div class=\"botoes\">");
@@ -561,6 +584,9 @@ public class Servidor {
                 html.append("</div>");
                 html.append("<button type=\"submit\">Confirmar</button>");
                 html.append("</form>");
+                if (edicao != 0){
+                    html.append("<p>Editado ").append(edicao).append(" vezes</p>");
+                }
 
                 html.append("</div>"); // conteudo-expandido
                 html.append("</div>"); // fecha div com classeExtra

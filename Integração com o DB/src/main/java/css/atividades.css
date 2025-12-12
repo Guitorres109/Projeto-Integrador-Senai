@@ -4,6 +4,7 @@ body {
   background-color: var(--White);
   color: var(--Black);
   align-items: center;
+  transition: all 0.10s ease;
 }
 header {
   width: 100%;
