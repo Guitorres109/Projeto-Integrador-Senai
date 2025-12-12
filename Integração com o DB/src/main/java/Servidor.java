@@ -317,7 +317,7 @@ public class Servidor {
         System.out.println("-------------------------------------");
         System.out.println("Cadastro realizado");
         System.out.println(" ");
-        System.out.println("Cadastrado por "+ usuarioDigitado);
+        System.out.println("Cadastrado por "+ usuario);
         System.out.println("Atividade: " + nome);
         System.out.println("Descrição: " + desc);
         System.out.println("Data: " + data);
@@ -383,7 +383,7 @@ public class Servidor {
                 String nome = rs.getString("nome");
                 String desc = rs.getString("descricao");
                 String data = rs.getString("data");
-                String usuario = rs.getString("usuario");
+//                String usuario = rs.getString("usuario");
                 String curtida = rs.getString("curtida");
 
                 // Trocar a cor se concluido ou não
@@ -400,7 +400,7 @@ public class Servidor {
                 html.append("<div class=\"bloco-content\">");
                 html.append("<h2>").append(nome).append("</h2>");
                 html.append("<p><strong> ").append(data).append("</strong></p>");
-                html.append("<p><strong>Adicionado por:</strong> ").append(usuario).append("</p>");
+//                html.append("<p><strong>Adicionado por:</strong> ").append(usuario).append("</p>");
                 html.append("<p>").append(desc).append("</p>");
                 html.append("</div>");
                 html.append("<div class=\"botoes\">");
@@ -521,6 +521,7 @@ public class Servidor {
                 String data = rs.getString("data");
                 String curtida = rs.getString("curtida");
 
+
                 // Classe extra para cor do card
                 String classeExtra = "bloco";
                 if ("Concluido".equals(curtida)) {
@@ -584,9 +585,6 @@ public class Servidor {
                 html.append("</div>");
                 html.append("<button type=\"submit\">Confirmar</button>");
                 html.append("</form>");
-                if (edicao != 0){
-                    html.append("<p>Editado ").append(edicao).append(" vezes</p>");
-                }
 
                 html.append("</div>"); // conteudo-expandido
                 html.append("</div>"); // fecha div com classeExtra
