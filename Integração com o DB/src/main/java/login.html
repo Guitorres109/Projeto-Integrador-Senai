@@ -30,7 +30,7 @@
         </div>
     </div>
     <section class="container reveal">
-        <form onsubmit="event.preventDefault(); verificar_usuario();">
+        <form method="post" action="/verificar">
             <div class="bloco">
                 <label for="usuario">Usuário</label>
                 <input type="text" placeholder="Nome Completo" id="usuario" name="usuario" required>
@@ -74,7 +74,7 @@
         </div>
     </section>
 </main>
-<script src="/js/login.js"></script>
+<!-- <script src="/js/login.js"></script> -->
 <script src="/js/script.js"></script>
 </body>
 </html>

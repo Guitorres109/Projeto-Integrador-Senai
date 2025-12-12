@@ -1,8 +1,19 @@
 var usuarios = [
   "Guilherme Torres", "Nicolas Tordino", "João Pedro", "Pietro Pardim", 
-  "Lucas Silva", "Maria Oliveira", "Ana Costa", "Carlos Souza", 
-  "Beatriz Lima", "Eduardo Pereira", "Fernanda Martins", 
-  "Juliana Alves", "Rafael Gomes", "Tiago Santos", "Larissa Silva"
+  "Mariana Adel Ayoub", "Giovanna Alves de Almeida", "Ana Carolina Santos Denobi",
+  "Felipe Chagas Machado", "Fernanda Cristina Rodrigues Ferreira",
+  "Carina Cristina Teixeira de Souza", "Henrique da Silva Lima",
+  "Eduardo de Figueiredo Ferreira Gandra", "Rayka Dom Pedro Hirata",
+  "Henrique Duarte de Sousa", "Maria Eduarda Silva Freitas",
+  "Raphaela Felix de Araujo", "Lucas Gabriel de Moura Adorni", 
+  "André Gustavo Pavanelli", "Ana Julia Lima dos Santos", 
+  "Sarah Kohn Baldoini", "Matheus Lopes Ferreira", 
+  "Yasmin Lopes Souza", "Arthur Marques Duarte Silva", 
+  "Gustavo Nunes da Silva", "Isabelle Queiroz Rodrigues", 
+  "Felipe Santos Silva", "Otávio Silva Garbin", 
+  "Isabelly Sofia Domingues", 
+  "Kauã Teles Santos", "Luiza Timporini Frazão", 
+  "Gabriel Viana dos Reis", "João Vitor Ulisses Bacurau", "Eduardo Fallabela"
 ];
 
 // Mapear senhas para cada usuário
@@ -11,17 +22,36 @@ var senhas = {
   "Nicolas Tordino": "neymarjunior",
   "João Pedro": "horadopaupreto",
   "Pietro Pardim": "naofechocomx9",
-  "Lucas Silva": "lucas1234",
-  "Maria Oliveira": "maria2021",
-  "Ana Costa": "anacosta2023",
-  "Carlos Souza": "carlos2023",
-  "Beatriz Lima": "beatriz123",
-  "Eduardo Pereira": "eduardo789",
-  "Fernanda Martins": "fernanda2020",
-  "Juliana Alves": "juliana123",
-  "Rafael Gomes": "rafael2021",
-  "Tiago Santos": "tiago2024",
-  "Larissa Silva": "larissa123"
+  // Adicionando as novas senhas (você pode personalizar essas senhas)
+  "Mariana Adel Ayoub": "12345678", //1
+  "Giovanna Alves de Almeida": "12345678", //2
+  "Ana Carolina Santos Denobi": "12345678", //3
+  "Felipe Chagas Machado": "senhaFelipe", //4
+  "Fernanda Cristina Rodrigues Ferreira": "12345678", //5
+  "Carina Cristina Teixeira de Souza": "12345678", //6
+  "Henrique da Silva Lima": "12345678", //7
+  "Eduardo de Figueiredo Ferreira Gandra": "12345678", //8
+  "Rayka Dom Pedro Hirata": "12345678", //9
+  "Henrique Duarte de Sousa": "12345678", //10
+  "Maria Eduarda Silva Freitas": "12345678", //11
+  "Raphaela Felix de Araujo": "12345678", //12
+  "Lucas Gabriel de Moura Adorni": "12345678", //13
+  "André Gustavo Pavanelli": "12345678", //14
+  "Ana Julia Lima dos Santos": "12345678", //15
+  "Sarah Kohn Baldoini": "12345678", //16
+  "Matheus Lopes Ferreira": "12345678", //17
+  "Yasmin Lopes Souza": "12345678", //18
+  "Arthur Marques Duarte Silva": "12345678", //19
+  "Gustavo Nunes da Silva": "12345678", //20
+  "Isabelle Queiroz Rodrigues": "12345678", //21
+  "Felipe Santos Silva": "12345678", //22
+  "Otávio Silva Garbin": "12345678", //23
+  "Isabelly Sofia Domingues": "12345678", //24
+  "Kauã Teles Santos": "12345678", //25
+  "Luiza Timporini Frazão": "12345678", //26
+  "Gabriel Viana dos Reis": "12345678", //27
+  "João Vitor Ulisses Bacurau": "12345678", //28
+  "Eduardo Fallabela": "12345678"
 };
 
 // Mapear o tipo de usuário para cada nome
@@ -30,18 +60,38 @@ var tipos_usuario = {
   "Nicolas Tordino": "professor",
   "João Pedro": "professor",
   "Pietro Pardim": "professor",
-  "Lucas Silva": "aluno",
-  "Maria Oliveira": "aluno",
-  "Ana Costa": "aluno",
-  "Carlos Souza": "aluno",
-  "Beatriz Lima": "aluno",
-  "Eduardo Pereira": "aluno",
-  "Fernanda Martins": "aluno",
-  "Juliana Alves": "aluno",
-  "Rafael Gomes": "aluno",
-  "Tiago Santos": "aluno",
-  "Larissa Silva": "aluno"
+  // Definindo como 'aluno' para todos os novos usuários
+  "Mariana Adel Ayoub": "aluno",
+  "Giovanna Alves de Almeida": "aluno",
+  "Ana Carolina Santos Denobi": "aluno",
+  "Felipe Chagas Machado": "aluno",
+  "Fernanda Cristina Rodrigues Ferreira": "aluno",
+  "Carina Cristina Teixeira de Souza": "aluno",
+  "Henrique da Silva Lima": "aluno",
+  "Eduardo de Figueiredo Ferreira Gandra": "aluno",
+  "Rayka Dom Pedro Hirata": "aluno",
+  "Henrique Duarte de Sousa": "aluno",
+  "Maria Eduarda Silva Freitas": "aluno",
+  "Raphaela Felix de Araujo": "aluno",
+  "Lucas Gabriel de Moura Adorni": "aluno",
+  "André Gustavo Pavanelli": "aluno",
+  "Ana Julia Lima dos Santos": "aluno",
+  "Sarah Kohn Baldoini": "aluno",
+  "Matheus Lopes Ferreira": "aluno",
+  "Yasmin Lopes Souza": "aluno",
+  "Arthur Marques Duarte Silva": "aluno",
+  "Gustavo Nunes da Silva": "aluno",
+  "Isabelle Queiroz Rodrigues": "aluno",
+  "Felipe Santos Silva": "aluno",
+  "Otávio Silva Garbin": "aluno",
+  "Isabelly Sofia Domingues": "aluno",
+  "Kauã Teles Santos": "aluno",
+  "Luiza Timporini Frazão": "aluno",
+  "Gabriel Viana dos Reis": "aluno",
+  "João Vitor Ulisses Bacurau": "aluno",
+  "Eduardo Fallabela": "professor"
 };
+
 
 var input_usuario = document.getElementById('usuario'); // O campo para o nome do usuário
 var input_senha = document.getElementById('senha'); // O campo para a senha

@@ -10,7 +10,8 @@ import java.sql.*;                                      // Para manipulação do
 public class Servidor {
 
     private static Connection con;
-
+    public static String usuarioDigitado = "";
+    public static String erro;
     public static void main(String[] args) throws Exception {
 
         // Conectar ao SQLite (arquivo conteudo.db na pasta do projeto)
@@ -31,7 +32,7 @@ public class Servidor {
 
         // Rotas básicas
         s.createContext("/", t -> enviar(t, "index.html"));
-        s.createContext("/login.html", t -> enviar(t, "login.html")); // mostra login
+        s.createContext("/login", t -> enviar(t, "login.html")); // mostra login
         s.createContext("/cadastro", Servidor::cadastro);     // cadastro de atividades
         s.createContext("/aluno", Servidor::aluno); // lista atividades para o aluno
         s.createContext("/acesso-professor", Servidor::acesso_professor); // lista atividades para o professor
@@ -40,7 +41,7 @@ public class Servidor {
         s.createContext("/editar", Servidor::editar);       //editar atividades
         s.createContext("/excluir", Servidor::excluir);       //excluir atividades
         s.createContext("/Atividades", t -> enviar(t, "Atividades.html"));   // Pagina do aluno
-        //s.createContext("/acesso-professor", t -> enviar(t, "carregando.html"));   // Professor
+        s.createContext("/verificar", Servidor::verificar);
 
         //Rotas de estilo
         s.createContext("/css/style.css", t -> enviarCSS(t, "css/style.css")); // CSS
@@ -79,6 +80,190 @@ public class Servidor {
         System.out.println("Rodando em http://localhost:8082/");
     }
 
+    // -------------------- Pagina de login em HTML dinamico  --------------------
+
+    public static void login (HttpExchange t) throws  IOException {
+        StringBuilder html = new StringBuilder();
+        System.out.println(erro);
+
+        html.append("<!DOCTYPE html>");
+        html.append("<html lang=\"pt-BR\">");
+        html.append("<head>");
+        html.append("<meta charset=\"UTF-8\">");
+        html.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
+        html.append("<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">");
+        html.append("<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>");
+        html.append("<link href=\"https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap\" rel=\"stylesheet\">");
+        html.append("<link rel=\"stylesheet\" href=\"/css/login.css\">");
+        html.append("<link rel=\"stylesheet\" href=\"/css/geral.css\">");
+        html.append("<link rel=\"icon\" href=\"/img/academyflow-logo.png\">");
+        html.append("<title>AcademyFlow | Login</title>");
+        html.append("</head>");
+        html.append("<body>");
+        html.append("<header>");
+        html.append("<div class=\"navegation\">");
+        html.append("<a href=\"/\">Home</a>");
+        html.append("<button class=\"dark-mode-button\" id=\"toggle-theme\" aria-label=\"Alternar modo escuro\">");
+        html.append("<img class=\"light-theme-img\" src=\"/img/dark-theme.svg\" alt=\"Ícone Claro\">");
+        html.append("<img class=\"dark-theme-img\" src=\"/img/light-theme.svg\" alt=\"Ícone Escuro\">");
+        html.append("</button>");
+        html.append("</div>");
+        html.append("</header>");
+        html.append("<main>");
+        html.append("<div id=\"customAlert\" class=\"alert\" style=\"display: none;\">");
+        html.append("<div class=\"alert-content\">");
+        html.append("<span id=\"alertMessage\"></span>");
+        html.append("<button type=\"button\" onclick=\"hideAlert()\">OK</button>");
+        html.append("</div>");
+        html.append("</div>");
+        html.append("<section class=\"container reveal\">");
+        html.append("<form method=\"post\" action=\"/verificar\">");
+        html.append("<div class=\"bloco\">");
+        html.append("<label for=\"usuario\">Usuário</label>");
+        html.append("<input type=\"text\" placeholder=\"Nome Completo\" id=\"usuario\" name=\"usuario\" required>");
+        html.append("</div>");
+        html.append("<div class=\"bloco\">");
+        html.append("<label for=\"senha\">Senha</label>");
+        html.append("<div class=\"inputsenha\">");
+        html.append("<input type=\"password\" placeholder=\"Mínimo 8 caracteres\" id=\"senha\" name=\"senha\" minlength=\"8\" required>");
+        html.append("<button type=\"button\" id=\"botaosenha\" class=\"revelar-senha\" onclick=\"togglePassword()\">👁️</button>");
+        html.append("</div>");
+        html.append("</div>");
+        html.append("<div class=\"bloco\">");
+        html.append("<label for=\"tipo\">Perfil</label>");
+        html.append("<select id=\"tipo\" name=\"tipo\" required>");
+        html.append("<option value=\"\">Selecionar</option>");
+        html.append("<option value=\"aluno\">Aluno</option>");
+        html.append("<option value=\"professor\">Professor</option>");
+        html.append("</select>");
+        html.append("</div>");
+        html.append("<div>");
+        html.append("<button type=\"submit\" id=\"enviar\">Enviar</button>");
+        html.append("</div>");
+        html.append("</form>");
+        html.append("<p>").append(erro).append("</p>");
+        html.append("</section>");
+        html.append("<section class=\"infos reveal\">");
+        html.append("<div class=\"linha reveal\">");
+        html.append("<img src=\"/img/estudante.jpg\" alt=\"\">");
+        html.append("<div class=\"infos-content\">");
+        html.append("<h2>Atendemos <span>escolas</span> de <span>alto nivel</span></h2>");
+        html.append("<p>Atendemos escolas de alto nível, oferecendo soluções de excelência que elevam a qualidade do ensino, aprimoram a gestão e fortalecem a experiência educacional. Nosso compromisso é apoiar instituições que buscam inovação, eficiência e resultados superiores.</p>");
+        html.append("</div>");
+        html.append("</div>");
+        html.append("<div class=\"linha reveal\">");
+        html.append("<div class=\"infos-content\">");
+        html.append("<h2><span>Facilidade</span> para todas as idades!</h2>");
+        html.append("<p>Uma experiência simples e intuitiva, pensada para oferecer facilidade e acessibilidade a pessoas de todas as idades, garantindo que todos possam aproveitar sem complicação.</p>");
+        html.append("</div>");
+        html.append("<img src=\"/escola-primaria.jpg\" alt=\"\">");
+        html.append("</div>");
+        html.append("</section>");
+        html.append("</main>");
+        html.append("<script src=\"/js/script.js\"></script>");
+        html.append("</body>");
+        html.append("</html>");
+    }
+
+    // -------------------- Função de verificação de login  --------------------
+
+    public static void verificar (HttpExchange t) throws IOException {
+
+        if (!t.getRequestMethod().equalsIgnoreCase("POST")) {
+            enviar(t, "/login"); //envia aquivo do professor
+            return;
+        }
+
+        String c = URLDecoder.decode(ler(t), StandardCharsets.UTF_8);
+
+        String[] usuarios = {
+                "Guilherme Torres", "Nicolas Tordino", "João Pedro", "Pietro Pardim",
+                "Mariana Adel Ayoub", "Giovanna Alves de Almeida", "Ana Carolina Santos Denobi",
+                "Felipe Chagas Machado", "Fernanda Cristina Rodrigues Ferreira",
+                "Carina Cristina Teixeira de Souza", "Henrique da Silva Lima",
+                "Eduardo de Figueiredo Ferreira Gandra", "Rayka Dom Pedro Hirata",
+                "Henrique Duarte de Sousa", "Maria Eduarda Silva Freitas",
+                "Raphaela Felix de Araujo", "Lucas Gabriel de Moura Adorni",
+                "André Gustavo Pavanelli", "Ana Julia Lima dos Santos",
+                "Sarah Kohn Baldoini", "Matheus Lopes Ferreira",
+                "Yasmin Lopes Souza", "Arthur Marques Duarte Silva",
+                "Gustavo Nunes da Silva", "Isabelle Queiroz Rodrigues",
+                "Felipe Santos Silva", "Otávio Silva Garbin",
+                "Isabelly Sofia Domingues", "Kauã Teles Santos", "Luiza Timporini Frazão",
+                "Gabriel Viana dos Reis", "João Vitor Ulisses Bacurau", "Eduardo Fallabela"
+        };
+
+        // Arrays para armazenar as senhas correspondentes
+        String[] senhas = {
+                "12345678", "neymarjunior", "horadopaupreto", "naofechocomx9",
+                "12345678", "12345678", "12345678", "12345678",
+                "12345678", "12345678", "12345678", "12345678",
+                "12345678", "12345678", "12345678", "12345678",
+                "12345678", "12345678", "12345678", "12345678",
+                "12345678", "12345678", "12345678", "12345678",
+                "12345678", "12345678", "12345678", "12345678",
+                "12345678", "12345678", "12345678", "12345678",
+                "12345678", "12345678", "12345678"
+        };
+
+        // Arrays para armazenar os tipos de usuário correspondentes
+        String[] tipos = {
+                "professor", "professor", "professor", "professor",
+                "aluno", "aluno", "aluno", "aluno", "aluno", "aluno",
+                "aluno", "aluno", "aluno", "aluno", "aluno", "aluno",
+                "aluno", "aluno", "aluno", "aluno", "aluno", "aluno",
+                "aluno", "aluno", "aluno", "aluno", "aluno", "aluno",
+                "aluno", "aluno", "aluno", "professor"
+        };
+
+        usuarioDigitado = pega(c, "usuario");
+        String senhaDigitada = pega(c, "senha");
+        String tipoDigitado = pega(c, "tipo");
+
+        int indexUsuario = -1;
+
+        // 1. Verificar se usuário existe no array
+        for (int i = 0; i < usuarios.length; i++) {
+            if (usuarios[i].equals(usuarioDigitado)) {
+                indexUsuario = i;
+                break;
+            }
+        }
+
+        if (indexUsuario == -1) {
+            System.out.println("Usuario não encontrado");
+            erro = "Usuario não encontrado";
+            redirecionar(t, "/login");
+        }
+
+        // 2. Verificar senha na mesma posição do usuário
+        if (!senhas[indexUsuario].equals(senhaDigitada)) {
+            System.out.println("senha incorreta");
+            erro = "Senha incorreta";
+            redirecionar(t, "/login");
+        }
+
+        // 3. Verificar tipo (professor/aluno)
+        if (!tipos[indexUsuario].equals(tipoDigitado)) {
+            System.out.println( "Tipo de usuário incorreto!");
+            erro = "Tipo de usuario incorreto!";
+            redirecionar(t, "/login");
+        }
+
+        // 4. Login correto
+        if (usuarios[indexUsuario].equals(usuarioDigitado) && senhas[indexUsuario].equals(senhaDigitada) && tipos[indexUsuario].equals(tipoDigitado)) {
+            if (tipoDigitado.equals("professor")){
+                redirecionar(t,"/acesso-professor");
+                System.out.println("Login realizado");
+                System.out.println("Professor(a) "+usuarioDigitado);
+            }
+            if (tipoDigitado.equals("aluno")){
+                redirecionar(t, "/aluno");
+                System.out.println("Login realizado");
+                System.out.println("Aluno(a) "+usuarioDigitado);
+            }
+        }
+    }
 
     // -------------------- Função de cadastro de atividades --------------------
 
@@ -113,7 +298,7 @@ public class Servidor {
         System.out.println(" ");
         System.out.println("Atividade: " + nome);
         System.out.println("Descrição: " + desc);
-        System.out.println("Data:: " + data);
+        System.out.println("Data: " + data);
         System.out.println("-------------------------------------");
     }
 
@@ -142,8 +327,8 @@ public class Servidor {
         html.append("<div></div>");
         html.append("<div class=\"nav\">");
         html.append("<div class=\"container-btn-header\">");
-        html.append("<h4>Bem-Vindo Aluno</h4>");
-        html.append("<p id=\"nome-usuario\"></p>");
+        html.append("<h4>Bem-Vindo Aluno(a)</h4>");
+        html.append("<p id=\"nome-usuario\">").append(usuarioDigitado).append("</p>");
         html.append("</div>");
 
         html.append("<div class=\"buttons\">");
@@ -225,20 +410,6 @@ public class Servidor {
             html.append("<h1>Erro ao carregar atividades.</h1>");
         }
         html.append("<script src=\"/js/script.js\"></script>");
-        html.append("<script>" +
-                "window.onload = function() {\n" +
-                "    var usuario = localStorage.getItem(\"usuario\"); // pega o valor salvo no localStorage\n" +
-                "    var usuario_existe = localStorage.getItem(\"usuario_existe\") === \"true\";\n" +
-                "\n" +
-                "    if (usuario_existe) {\n" +
-                "        console.log(\"O usuário existe.\");\n" +
-                "        document.getElementById(\"nome-usuario\").innerHTML = usuario + \"!\";\n" +
-                "    } else {\n" +
-                "        console.log(\"O usuário não existe.\");\n" +
-                "        window.location.href = \"/login\";\n" +
-                "        document.getElementById(\"nome-usuario\").innerHTML = \"Nenhum usuário encontrado\";\n" +
-                "    }\n" +
-                "};</script>");
         html.append("</body></html>");
 
         // Enviar HTML gerado
@@ -272,8 +443,8 @@ public class Servidor {
         html.append("<div></div>");
         html.append("<div class=\"nav\">");
         html.append("<div class=\"container-btn-header\">");
-        html.append("<h4>Bem-Vindo Professor</h4>");
-        html.append("<p id=\"nome-usuario\"></p>");
+        html.append("<h4>Bem-Vindo Professor(a)</h4>");
+        html.append("<p id=\"nome-usuario\">").append(usuarioDigitado).append("</p>");
         html.append("</div>");
 
         html.append("<div class=\"buttons\">");
@@ -404,20 +575,6 @@ public class Servidor {
             html.append("<p>Erro ao carregar atividades.</p>");
         }
         html.append("<script src=\"/js/script.js\"></script>");
-        html.append("<script>" +
-                "window.onload = function() {\n" +
-                "    var usuario = localStorage.getItem(\"usuario\"); // pega o valor salvo no localStorage\n" +
-                "    var usuario_existe = localStorage.getItem(\"usuario_existe\") === \"true\";\n" +
-                "\n" +
-                "    if (usuario_existe) {\n" +
-                "        console.log(\"O usuário existe.\");\n" +
-                "        document.getElementById(\"nome-usuario\").innerHTML = usuario + \"!\";\n" +
-                "    } else {\n" +
-                "        console.log(\"O usuário não existe.\");\n" +
-                "        window.location.href = \"/login\";\n" +
-                "        document.getElementById(\"nome-usuario\").innerHTML = \"Nenhum usuário encontrado\";\n" +
-                "    }\n" +
-                "};</script>");
         html.append("</body></html>");
 
         // Enviar HTML gerado
